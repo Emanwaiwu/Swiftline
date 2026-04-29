@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="glow" cx="80%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="#C9A96E" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#F4EFE6"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <text x="80" y="100" font-family="Georgia, serif" font-size="36" font-weight="400" fill="#0E1413" letter-spacing="-1">
+    Swift<tspan font-style="italic" fill="#3F5246">line</tspan><tspan fill="#B8954E">.</tspan>
+  </text>
+
+  <line x1="80" y1="280" x2="120" y2="280" stroke="#3F5246" stroke-width="1"/>
+  <text x="135" y="285" font-family="ui-monospace, monospace" font-size="14" fill="#3F5246" letter-spacing="2.5">AI RECEPTIONIST FOR MED SPAS</text>
+
+  <text x="80" y="380" font-family="Georgia, serif" font-size="78" font-weight="400" fill="#0E1413" letter-spacing="-2">Never miss a call.</text>
+
+  <!-- Underline behind "booking" only - measured from rendered output -->
+  <rect x="538" y="438" width="265" height="14" fill="#C9A96E" opacity="0.6"/>
+  <text x="80" y="465" font-family="Georgia, serif" font-style="italic" font-size="78" font-weight="400" fill="#0E1413" letter-spacing="-2">Never miss a booking.</text>
+
+  <line x1="80" y1="540" x2="1120" y2="540" stroke="#0E1413" stroke-opacity="0.12" stroke-width="1"/>
+  <text x="80" y="585" font-family="-apple-system, system-ui, sans-serif" font-size="22" font-weight="500" fill="#0E1413">Pay nothing until we book your first 5 consults.</text>
+  <text x="1120" y="585" font-family="ui-monospace, monospace" font-size="14" fill="#3F5246" text-anchor="end" letter-spacing="2">getswiftline.com</text>
+</svg>

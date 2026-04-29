@@ -1,0 +1,16 @@
+{
+  "name": "swiftline",
+  "version": "1.0.0",
+  "description": "AI receptionist for med spas",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "resend": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

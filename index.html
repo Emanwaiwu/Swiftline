@@ -1,0 +1,2297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Primary Meta Tags -->
+<title>Swiftline · AI Receptionist for Med Spas</title>
+<meta name="title" content="Swiftline · AI Receptionist for Med Spas">
+<meta name="description" content="Swiftline answers every call, books every consult, and captures every lead. Built for med spas. You don't pay until we book your first 5 consults.">
+<meta name="author" content="Swiftline">
+<link rel="canonical" href="https://getswiftline.com/">
+
+<!-- Open Graph / Facebook / iMessage -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://getswiftline.com/">
+<meta property="og:title" content="Never miss a call. Never miss a booking.">
+<meta property="og:description" content="An AI receptionist built for med spas. Pay nothing until we book your first 5 consults.">
+<meta property="og:image" content="https://getswiftline.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="Swiftline">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://getswiftline.com/">
+<meta name="twitter:title" content="Never miss a call. Never miss a booking.">
+<meta name="twitter:description" content="An AI receptionist built for med spas. Pay nothing until we book your first 5 consults.">
+<meta name="twitter:image" content="https://getswiftline.com/og-image.png">
+
+<!-- Theme color for mobile browsers -->
+<meta name="theme-color" content="#F4EFE6">
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- Plausible Analytics (privacy-friendly, no cookies) -->
+<script defer data-domain="getswiftline.com" src="https://plausible.io/js/script.js"></script>
+
+<!-- Cal.com Embed -->
+<script type="text/javascript">
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+  Cal("init", "demo", {origin:"https://app.cal.com"});
+  Cal.ns.demo("ui", {
+    cssVarsPerTheme: {
+      light: { "cal-brand": "#0E1413" }
+    },
+    hideEventTypeDetails: false,
+    layout: "month_view"
+  });
+</script>
+
+<style>
+  :root {
+    --ink: #0E1413;
+    --ink-soft: #2A302E;          /* darker than before for better contrast */
+    --bone: #F4EFE6;
+    --bone-warm: #EBE4D6;
+    --sage: #3F5246;              /* deeper sage for AA contrast on bone */
+    --sage-deep: #2F3D33;
+    --gold: #B8954E;              /* deeper gold, passes AA on bone for body text */
+    --gold-bright: #C9A96E;       /* original tone, used only on dark bg or large display */
+    --gold-soft: #D9BC83;
+    --rose: #E8C7B5;
+    --line: rgba(14, 20, 19, 0.12);
+    --line-strong: rgba(14, 20, 19, 0.22);
+    --line-light: rgba(244, 239, 230, 0.15);
+    --display: 'DM Serif Display', Georgia, serif;
+    --sans: 'Inter Tight', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+
+    --container: 1320px;
+    --pad-x: clamp(20px, 5vw, 40px);
+    --section-y: clamp(72px, 10vw, 120px);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  button { font-family: inherit; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bone);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    font-size: 16px;
+  }
+  ::selection { background: var(--gold-bright); color: var(--ink); }
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; }
+
+  /* TICKER */
+  .ticker {
+    background: var(--ink);
+    color: var(--bone);
+    overflow: hidden;
+    border-bottom: 1px solid var(--line-light);
+    padding: 10px 0;
+  }
+  .ticker-track {
+    display: flex;
+    white-space: nowrap;
+    animation: scroll 50s linear infinite;
+  }
+  .ticker-item {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin: 0 28px;
+    color: rgba(244, 239, 230, 0.75);
+  }
+  .ticker-item span { color: var(--gold-bright); margin-right: 8px; }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(244, 239, 230, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 16px var(--pad-x);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  /* WORDMARK LOGO */
+  .logo {
+    font-family: var(--display);
+    font-size: clamp(24px, 2.6vw, 28px);
+    font-weight: 400;
+    letter-spacing: -0.025em;
+    text-decoration: none;
+    color: var(--ink);
+    flex-shrink: 0;
+    line-height: 1;
+    display: inline-flex;
+    align-items: baseline;
+  }
+  .logo .swift { color: var(--ink); }
+  .logo .line {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--sage);
+  }
+  .logo .dot {
+    color: var(--gold);
+    margin-left: 1px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: clamp(20px, 2.6vw, 36px);
+    list-style: none;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .nav-links a {
+    color: var(--ink);
+    text-decoration: none;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+  }
+  .nav-links a:hover { opacity: 0.6; }
+  .nav-cta {
+    background: var(--ink);
+    color: var(--bone);
+    padding: 11px 20px;
+    border-radius: 100px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: transform 0.2s, background 0.2s;
+    display: inline-block;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { transform: translateY(-1px); background: var(--sage-deep); }
+
+  /* HERO */
+  .hero {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: clamp(56px, 9vw, 96px) var(--pad-x) clamp(72px, 12vw, 120px);
+    position: relative;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: clamp(48px, 7vw, 88px);
+    align-items: center;
+  }
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--sage);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--sage);
+  }
+  .hero-pulse {
+    width: 8px;
+    height: 8px;
+    background: #4ADE80;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.6);
+    animation: pulse 2s infinite;
+    flex-shrink: 0;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.6); }
+    70% { box-shadow: 0 0 0 12px rgba(74, 222, 128, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+  }
+  h1.hero-title {
+    font-family: var(--display);
+    font-size: clamp(36px, 5.5vw, 68px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--ink);
+  }
+  .hero-title .accent {
+    position: relative;
+    display: inline-block;
+  }
+  .hero-title .accent::after {
+    content: '';
+    position: absolute;
+    bottom: 0.08em;
+    left: -2%;
+    width: 104%;
+    height: 0.12em;
+    background: var(--gold-bright);
+    z-index: -1;
+    opacity: 0.7;
+  }
+  .hero-sub {
+    font-size: clamp(16px, 1.55vw, 19px);
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 520px;
+    margin-bottom: 36px;
+  }
+  .hero-cta-row {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 44px;
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: var(--bone);
+    padding: 16px 28px;
+    border-radius: 100px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.25s;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn-primary:hover {
+    background: var(--sage-deep);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(14, 20, 19, 0.18);
+  }
+  .btn-primary svg { transition: transform 0.25s; }
+  .btn-primary:hover svg { transform: translateX(4px); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--ink);
+    padding: 14px 22px 14px 14px;
+    border-radius: 100px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    border: 1.5px solid var(--ink);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .btn-secondary:hover { background: var(--ink); color: var(--bone); }
+  .btn-secondary .phone-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--gold-bright);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink);
+    flex-shrink: 0;
+  }
+
+  /* Hero footer band: replaces fake stats with real, honest framing */
+  .hero-foot {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+    flex-wrap: wrap;
+  }
+  .hero-foot-icon {
+    width: 36px; height: 36px;
+    background: var(--bone-warm);
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--sage-deep);
+    flex-shrink: 0;
+  }
+  .hero-foot-text {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.4;
+    flex: 1;
+    min-width: 200px;
+  }
+  .hero-foot-text strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* HERO PHONE MOCKUP */
+  .hero-visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1200px;
+    min-height: 420px;
+  }
+  .phone-frame {
+    background: var(--ink);
+    border-radius: 44px;
+    padding: 14px;
+    box-shadow:
+      0 50px 80px -20px rgba(14, 20, 19, 0.35),
+      0 0 0 1px rgba(0,0,0,0.1);
+    transform: rotate(-2deg);
+    width: min(320px, 90vw);
+    position: relative;
+  }
+  .phone-screen {
+    background: linear-gradient(160deg, #1a2220 0%, #0E1413 100%);
+    border-radius: 32px;
+    padding: 24px 20px;
+    color: var(--bone);
+    min-height: 540px;
+    position: relative;
+    overflow: hidden;
+  }
+  .phone-screen::before {
+    content: '';
+    position: absolute;
+    top: 14px; left: 50%;
+    transform: translateX(-50%);
+    width: 100px; height: 24px;
+    background: #000;
+    border-radius: 100px;
+  }
+  .call-status {
+    margin-top: 56px;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .call-status-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--gold-bright);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .call-status-label::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--gold-bright);
+    border-radius: 50%;
+    animation: pulse-gold 1.5s infinite;
+  }
+  @keyframes pulse-gold {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  .call-name {
+    font-family: var(--display);
+    font-size: 26px;
+    font-weight: 400;
+    margin-bottom: 4px;
+  }
+  .call-time {
+    font-size: 12px;
+    color: rgba(244, 239, 230, 0.55);
+    font-family: var(--mono);
+  }
+  .transcript {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .msg {
+    padding: 10px 14px;
+    border-radius: 16px;
+    font-size: 13px;
+    line-height: 1.4;
+    max-width: 85%;
+    opacity: 0;
+    animation: msgIn 0.5s ease forwards;
+  }
+  .msg.ai {
+    background: rgba(201, 169, 110, 0.18);
+    border: 1px solid rgba(201, 169, 110, 0.32);
+    color: var(--bone);
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+  }
+  .msg.client {
+    background: rgba(244, 239, 230, 0.1);
+    color: rgba(244, 239, 230, 0.92);
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+  }
+  .msg-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--gold-bright);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+  .msg.client .msg-label { color: rgba(244, 239, 230, 0.5); }
+  .msg:nth-child(1) { animation-delay: 0.5s; }
+  .msg:nth-child(2) { animation-delay: 1.2s; }
+  .msg:nth-child(3) { animation-delay: 1.9s; }
+  .msg:nth-child(4) { animation-delay: 2.6s; }
+  @keyframes msgIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .booking-confirm {
+    margin-top: 18px;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--gold-bright) 0%, var(--gold-soft) 100%);
+    border-radius: 14px;
+    color: var(--ink);
+    opacity: 0;
+    animation: msgIn 0.5s ease forwards;
+    animation-delay: 3.3s;
+  }
+  .booking-confirm-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .booking-confirm-text {
+    font-family: var(--display);
+    font-size: 14px;
+    line-height: 1.3;
+  }
+  .floating-card {
+    position: absolute;
+    background: var(--bone);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 14px 18px;
+    box-shadow: 0 20px 40px rgba(14, 20, 19, 0.12);
+    z-index: 2;
+  }
+  .floating-card-1 {
+    top: 24px;
+    left: -10px;
+    transform: rotate(-4deg);
+    animation: float1 6s ease-in-out infinite;
+  }
+  .floating-card-2 {
+    bottom: 40px;
+    right: -10px;
+    transform: rotate(3deg);
+    animation: float2 7s ease-in-out infinite;
+  }
+  @keyframes float1 {
+    0%, 100% { transform: rotate(-4deg) translateY(0); }
+    50% { transform: rotate(-4deg) translateY(-12px); }
+  }
+  @keyframes float2 {
+    0%, 100% { transform: rotate(3deg) translateY(0); }
+    50% { transform: rotate(3deg) translateY(10px); }
+  }
+  .fc-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--sage);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .fc-stat {
+    font-family: var(--display);
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .fc-detail {
+    font-size: 12px;
+    color: var(--sage-deep);
+    margin-top: 4px;
+  }
+
+  /* COMPATIBILITY BAND (replaces named software list) */
+  .compat-band {
+    background: var(--bone-warm);
+    padding: clamp(36px, 5vw, 52px) var(--pad-x);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    text-align: center;
+  }
+  .compat-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .compat-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 16px;
+  }
+  .compat-headline {
+    font-family: var(--display);
+    font-size: clamp(22px, 2.6vw, 30px);
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .compat-headline em {
+    font-style: italic;
+    color: var(--sage);
+  }
+  .compat-sub {
+    font-size: 14px;
+    color: var(--sage-deep);
+    margin-top: 12px;
+    line-height: 1.5;
+  }
+
+  /* SECTIONS */
+  .section {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: var(--section-y) var(--pad-x);
+  }
+  .section-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--sage);
+    flex-shrink: 0;
+  }
+  h2.section-title {
+    font-family: var(--display);
+    font-size: clamp(30px, 4.4vw, 54px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 22px;
+    max-width: 900px;
+  }
+  h2.section-title em {
+    font-style: italic;
+    color: var(--sage);
+  }
+  .section-sub {
+    font-size: clamp(16px, 1.5vw, 18px);
+    color: var(--ink-soft);
+    max-width: 640px;
+    line-height: 1.55;
+    margin-bottom: clamp(48px, 7vw, 64px);
+  }
+
+  /* PROBLEM */
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(16px, 2vw, 24px);
+  }
+  .problem-card {
+    background: var(--bone-warm);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: clamp(28px, 3vw, 36px);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .problem-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(14, 20, 19, 0.08);
+  }
+  .problem-stat {
+    font-family: var(--display);
+    font-size: clamp(48px, 5vw, 64px);
+    font-weight: 400;
+    line-height: 1;
+    color: var(--ink);
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+  }
+  .problem-stat sup {
+    font-size: 0.45em;
+    color: var(--gold);
+    vertical-align: top;
+    margin-left: 4px;
+  }
+  .problem-headline {
+    font-family: var(--display);
+    font-size: clamp(20px, 2vw, 22px);
+    font-weight: 400;
+    line-height: 1.25;
+    margin-bottom: 12px;
+    letter-spacing: -0.005em;
+  }
+  .problem-text {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  /* SOLUTION */
+  .solution {
+    background: var(--ink);
+    color: var(--bone);
+    position: relative;
+    overflow: hidden;
+  }
+  .solution::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    right: -200px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(201, 169, 110, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .solution-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: var(--section-y) var(--pad-x);
+    position: relative;
+  }
+  .solution .section-eyebrow { color: var(--gold-bright); }
+  .solution .section-eyebrow::before { background: var(--gold-bright); }
+  .solution h2.section-title em { color: var(--gold-soft); }
+  .solution .section-sub { color: rgba(244, 239, 230, 0.78); }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line-light);
+    border-top: 1px solid var(--line-light);
+    border-bottom: 1px solid var(--line-light);
+    margin-top: 32px;
+  }
+  .step {
+    background: var(--ink);
+    padding: clamp(28px, 3vw, 40px) clamp(24px, 2.5vw, 32px);
+    position: relative;
+  }
+  .step-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--gold-bright);
+    margin-bottom: 20px;
+    display: block;
+  }
+  .step-title {
+    font-family: var(--display);
+    font-size: clamp(20px, 2.2vw, 24px);
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    letter-spacing: -0.005em;
+  }
+  .step-text {
+    font-size: 14px;
+    color: rgba(244, 239, 230, 0.72);
+    line-height: 1.6;
+  }
+  .step-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: rgba(201, 169, 110, 0.15);
+    border: 1px solid rgba(201, 169, 110, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    color: var(--gold-bright);
+  }
+
+  /* FEATURES */
+  .features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 6vw, 80px);
+    align-items: start;
+  }
+  .features-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .feature-item {
+    padding: clamp(24px, 3vw, 32px) 0;
+    border-bottom: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  .feature-item:first-child { padding-top: 0; }
+  .feature-item:last-child { border-bottom: none; }
+  .feature-num {
+    font-family: var(--display);
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--gold);
+    line-height: 1;
+    font-style: italic;
+  }
+  .feature-headline {
+    font-family: var(--display);
+    font-size: clamp(20px, 2vw, 22px);
+    font-weight: 400;
+    line-height: 1.25;
+    margin-bottom: 8px;
+    letter-spacing: -0.005em;
+  }
+  .feature-text {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  /* Features visual: a "weekly summary email" mockup, not a dashboard */
+  .features-visual {
+    position: sticky;
+    top: 100px;
+    background: var(--bone);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: clamp(28px, 3vw, 36px);
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(14, 20, 19, 0.08);
+  }
+  .summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+    gap: 16px;
+  }
+  .summary-from {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--sage);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .summary-subject {
+    font-family: var(--display);
+    font-size: clamp(18px, 2vw, 21px);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .summary-date {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--sage-deep);
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+    text-transform: uppercase;
+  }
+
+  .summary-greeting {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+
+  .summary-stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  .summary-stat {
+    background: var(--bone-warm);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .summary-stat-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--sage);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .summary-stat-num {
+    font-family: var(--display);
+    font-size: clamp(26px, 3vw, 30px);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .summary-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .summary-list-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--sage);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .summary-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    font-size: 13px;
+    border-bottom: 1px solid var(--line);
+  }
+  .summary-row:last-child { border-bottom: none; }
+  .summary-row-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .summary-row-dot.book { background: var(--gold); }
+  .summary-row-dot.lead { background: var(--sage); }
+  .summary-row-text { flex: 1; color: var(--ink-soft); min-width: 0; }
+  .summary-row-text strong { color: var(--ink); font-weight: 600; }
+  .summary-row-time {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--sage-deep);
+    flex-shrink: 0;
+  }
+
+  /* WHY SWIFTLINE */
+  .why {
+    background: var(--bone-warm);
+    padding: var(--section-y) 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .why-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 var(--pad-x);
+    text-align: center;
+  }
+  .why-inner .section-eyebrow {
+    justify-content: center;
+  }
+  .why-inner .section-eyebrow::before {
+    display: none;
+  }
+  .why-title {
+    font-family: var(--display);
+    font-size: clamp(30px, 4.4vw, 54px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 56px;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .why-title em {
+    font-style: italic;
+    color: var(--sage);
+  }
+
+  .why-prose {
+    font-family: var(--sans);
+    font-size: clamp(16px, 1.4vw, 18px);
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    letter-spacing: 0;
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .why-prose p {
+    margin-bottom: 24px;
+  }
+  .why-prose p:last-child { margin-bottom: 0; }
+  .why-prose em {
+    font-style: italic;
+    color: var(--sage-deep);
+  }
+  .why-prose strong {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .why-sign {
+    margin-top: 56px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .why-sign-name {
+    font-family: var(--display);
+    font-size: 22px;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .why-sign-role {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--sage);
+    text-transform: uppercase;
+  }
+
+  /* GUARANTEE */
+  .guarantee-wrap {
+    padding: clamp(40px, 6vw, 60px) var(--pad-x);
+  }
+  .guarantee {
+    background: var(--ink);
+    color: var(--bone);
+    border-radius: 28px;
+    padding: clamp(48px, 7vw, 80px) clamp(28px, 5vw, 60px);
+    max-width: 1240px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+  }
+  .guarantee::before {
+    content: '5';
+    position: absolute;
+    right: -40px;
+    bottom: -100px;
+    font-family: var(--display);
+    font-size: clamp(220px, 30vw, 480px);
+    font-weight: 400;
+    color: var(--gold-bright);
+    opacity: 0.08;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .guarantee-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 6vw, 80px);
+    align-items: center;
+  }
+  .guarantee-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-bright);
+    margin-bottom: 18px;
+  }
+  .guarantee-title {
+    font-family: var(--display);
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  .guarantee-title em {
+    font-style: italic;
+    color: var(--gold-soft);
+  }
+  .guarantee-text {
+    font-size: clamp(15px, 1.5vw, 17px);
+    color: rgba(244, 239, 230, 0.82);
+    line-height: 1.6;
+    max-width: 480px;
+  }
+  .guarantee-seal {
+    width: clamp(220px, 28vw, 320px);
+    aspect-ratio: 1;
+    border: 1.5px solid var(--gold-bright);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+    background: radial-gradient(circle at center, rgba(201, 169, 110, 0.08) 0%, transparent 70%);
+  }
+  .guarantee-seal::before, .guarantee-seal::after {
+    content: '';
+    position: absolute;
+    border: 1px solid rgba(201, 169, 110, 0.3);
+    border-radius: 50%;
+  }
+  .guarantee-seal::before { inset: 12px; }
+  .guarantee-seal::after { inset: 24px; border-color: rgba(201, 169, 110, 0.15); }
+  .seal-num {
+    font-family: var(--display);
+    font-size: clamp(64px, 9vw, 96px);
+    font-weight: 400;
+    color: var(--gold-bright);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .seal-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--bone);
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+  .seal-sub {
+    font-size: 12px;
+    color: rgba(244, 239, 230, 0.65);
+    margin-top: 10px;
+    max-width: 200px;
+    font-style: italic;
+    font-family: var(--display);
+  }
+
+  /* PRICING */
+  .pricing-section {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: var(--section-y) var(--pad-x);
+    text-align: center;
+  }
+  .pricing-section .section-eyebrow {
+    justify-content: center;
+  }
+  .pricing-section .section-eyebrow::before {
+    display: none;
+  }
+  .pricing-section h2.section-title {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .pricing-section .section-sub {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .price-single {
+    margin: clamp(36px, 5vw, 48px) auto 0;
+    background: var(--ink);
+    color: var(--bone);
+    border-radius: 28px;
+    padding: clamp(36px, 5vw, 64px);
+    position: relative;
+    overflow: hidden;
+    max-width: 1100px;
+    text-align: left;
+  }
+  .price-single::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    right: -200px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(201, 169, 110, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .price-single-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(32px, 5vw, 64px);
+    position: relative;
+    z-index: 1;
+  }
+  .price-single-left {
+    display: flex;
+    flex-direction: column;
+  }
+  .price-single .price-tier {
+    color: var(--gold-bright);
+    margin-bottom: 18px;
+  }
+  .price-single .price-name {
+    font-family: var(--display);
+    font-size: clamp(30px, 3.6vw, 38px);
+    font-weight: 400;
+    line-height: 1.05;
+    margin-bottom: 14px;
+    letter-spacing: -0.015em;
+    color: var(--bone);
+  }
+  .price-single .price-desc {
+    font-size: 15px;
+    color: rgba(244, 239, 230, 0.78);
+    margin-bottom: 32px;
+    line-height: 1.55;
+    max-width: 380px;
+  }
+  .price-single .price-amount {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+  .price-single .price-amount-num {
+    font-family: var(--display);
+    font-size: clamp(56px, 7vw, 84px);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--bone);
+  }
+  .price-single .price-amount-period {
+    font-size: 16px;
+    color: rgba(244, 239, 230, 0.65);
+  }
+  .price-single .price-setup {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--gold-bright);
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+  .price-trial {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: rgba(201, 169, 110, 0.12);
+    border: 1px solid rgba(201, 169, 110, 0.28);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--bone);
+    margin-top: auto;
+  }
+  .price-trial svg {
+    flex-shrink: 0;
+    color: var(--gold-bright);
+    margin-top: 2px;
+  }
+  .price-single-right {
+    display: flex;
+    flex-direction: column;
+  }
+  .price-single .price-features {
+    list-style: none;
+    margin-bottom: 28px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    flex: 1;
+  }
+  .price-single .price-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: rgba(244, 239, 230, 0.92);
+  }
+  .price-single .price-check {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--gold-bright);
+    color: var(--ink);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    margin-top: 1px;
+    font-weight: 600;
+  }
+  .price-single .price-cta {
+    width: 100%;
+    background: var(--gold-bright);
+    color: var(--ink);
+    padding: 18px;
+    border-radius: 100px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: center;
+    display: block;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+  }
+  .price-single .price-cta:hover {
+    background: var(--gold-soft);
+    transform: translateY(-2px);
+  }
+
+  .price-tier {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sage);
+  }
+
+  /* FAQ */
+  .faq-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--section-y) var(--pad-x);
+  }
+  .faq-list {
+    margin-top: clamp(36px, 5vw, 48px);
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--line);
+    padding: clamp(22px, 2.5vw, 28px) 0;
+    cursor: pointer;
+  }
+  .faq-q {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+  .faq-q-text {
+    font-family: var(--display);
+    font-size: clamp(18px, 2vw, 22px);
+    font-weight: 400;
+    letter-spacing: -0.005em;
+    line-height: 1.3;
+    flex: 1;
+  }
+  .faq-toggle {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--ink);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s, background 0.3s, color 0.3s;
+    font-size: 18px;
+    line-height: 0;
+    padding-bottom: 2px;
+  }
+  .faq-item.open .faq-toggle {
+    background: var(--ink);
+    color: var(--bone);
+    transform: rotate(45deg);
+  }
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding-top 0.4s ease;
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+  .faq-item.open .faq-a {
+    max-height: 500px;
+    padding-top: 16px;
+  }
+
+  /* LEAD CAPTURE */
+  .lead-section {
+    background: var(--bone-warm);
+    padding: var(--section-y) var(--pad-x);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .lead-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .lead-inner .section-eyebrow {
+    justify-content: center;
+  }
+  .lead-inner .section-eyebrow::before {
+    display: none;
+  }
+  .lead-inner h2.section-title {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .lead-inner .section-sub {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .lead-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: clamp(32px, 4vw, 40px);
+    text-align: left;
+  }
+  .lead-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .lead-field-full {
+    grid-column: 1 / -1;
+  }
+  .lead-field label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+  }
+  .lead-optional {
+    color: var(--sage);
+    font-size: 10px;
+    margin-left: 4px;
+  }
+  .lead-field input,
+  .lead-field textarea {
+    background: var(--bone);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-family: var(--sans);
+    font-size: 15px;
+    color: var(--ink);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+  }
+  .lead-field input:focus,
+  .lead-field textarea:focus {
+    outline: none;
+    border-color: var(--sage);
+    box-shadow: 0 0 0 3px rgba(63, 82, 70, 0.12);
+  }
+  .lead-field textarea {
+    resize: vertical;
+    min-height: 80px;
+    font-family: var(--sans);
+  }
+  .lead-honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .lead-submit {
+    grid-column: 1 / -1;
+    background: var(--ink);
+    color: var(--bone);
+    padding: 16px 28px;
+    border-radius: 100px;
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.25s;
+    margin-top: 8px;
+    justify-self: start;
+  }
+  .lead-submit:hover:not(:disabled) {
+    background: var(--sage-deep);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(14, 20, 19, 0.18);
+  }
+  .lead-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  .lead-submit svg {
+    transition: transform 0.25s;
+  }
+  .lead-submit:hover:not(:disabled) svg {
+    transform: translateX(4px);
+  }
+  .lead-status {
+    grid-column: 1 / -1;
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 20px;
+  }
+  .lead-status.success {
+    color: var(--sage-deep);
+    font-weight: 500;
+  }
+  .lead-status.error {
+    color: #b91c1c;
+  }
+
+  /* FINAL CTA */
+  .final-cta {
+    background: var(--ink);
+    color: var(--bone);
+    padding: clamp(80px, 12vw, 140px) var(--pad-x);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .final-cta::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(800px, 100vw);
+    height: min(800px, 100vw);
+    background: radial-gradient(circle, rgba(201, 169, 110, 0.1) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .final-cta-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .final-cta h2 {
+    font-family: var(--display);
+    font-size: clamp(36px, 5.5vw, 68px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+  }
+  .final-cta h2 em {
+    font-style: italic;
+    color: var(--gold-bright);
+  }
+  .final-cta p {
+    font-size: clamp(16px, 1.6vw, 19px);
+    color: rgba(244, 239, 230, 0.78);
+    margin-bottom: 44px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.55;
+  }
+  .final-cta-row {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .final-cta .btn-primary { background: var(--gold-bright); color: var(--ink); }
+  .final-cta .btn-primary:hover { background: var(--gold-soft); }
+  .final-cta .btn-secondary { color: var(--bone); border-color: var(--bone); }
+  .final-cta .btn-secondary:hover { background: var(--bone); color: var(--ink); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: rgba(244, 239, 230, 0.7);
+    padding: clamp(48px, 6vw, 60px) var(--pad-x) clamp(32px, 4vw, 40px);
+    border-top: 1px solid var(--line-light);
+  }
+  .footer-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: clamp(36px, 5vw, 60px);
+    padding-bottom: clamp(36px, 5vw, 48px);
+    border-bottom: 1px solid var(--line-light);
+  }
+  .footer-brand .logo { color: var(--bone); margin-bottom: 16px; }
+  .footer-brand .logo .swift { color: var(--bone); }
+  .footer-brand .logo .line { color: var(--gold-soft); }
+  .footer-brand .logo .dot { color: var(--gold-bright); }
+  .footer-tagline {
+    font-family: var(--display);
+    font-size: 16px;
+    font-style: italic;
+    max-width: 280px;
+    line-height: 1.5;
+    color: rgba(244, 239, 230, 0.85);
+  }
+  .footer-col h4 {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-bright);
+    margin-bottom: 18px;
+    font-weight: 500;
+  }
+  .footer-col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .footer-col a {
+    color: rgba(244, 239, 230, 0.7);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--bone); }
+  .footer-bottom {
+    max-width: var(--container);
+    margin: clamp(24px, 3vw, 32px) auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: rgba(244, 239, 230, 0.5);
+    font-family: var(--mono);
+    letter-spacing: 0.05em;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 56px; }
+    .features { grid-template-columns: 1fr; gap: 40px; }
+    .features-visual { position: static; }
+    .guarantee-inner { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+    .guarantee-text { margin: 0 auto; }
+    .problem-grid { grid-template-columns: 1fr 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .price-single-inner { grid-template-columns: 1fr; gap: 36px; }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .footer-brand { grid-column: 1 / -1; }
+    .hero-visual { min-height: auto; padding: 40px 0; }
+  }
+
+  @media (max-width: 860px) {
+    .nav-links { display: none; }
+  }
+
+  @media (max-width: 640px) {
+    body { font-size: 15px; }
+    .ticker-item { margin: 0 18px; font-size: 10px; }
+    .nav-cta { padding: 10px 16px; font-size: 13px; }
+    .hero { padding-top: 40px; }
+    .hero-eyebrow { margin-bottom: 22px; }
+    .hero-cta-row { gap: 12px; flex-direction: column; align-items: stretch; }
+    .btn-primary, .btn-secondary { justify-content: center; }
+    .btn-secondary { padding: 12px 20px 12px 12px; font-size: 14px; }
+    .hero-foot { gap: 14px; padding-top: 24px; }
+    .floating-card { padding: 12px 14px; }
+    .floating-card-1 { left: -4px; top: 16px; }
+    .floating-card-2 { right: -4px; bottom: 24px; }
+    .fc-stat { font-size: 22px; }
+    .fc-label, .fc-detail { font-size: 10px; }
+    .problem-grid, .steps { grid-template-columns: 1fr; }
+    .step { padding: 28px 24px; }
+    .guarantee::before { font-size: 200px; right: -30px; bottom: -50px; }
+    .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+    .footer-brand { grid-column: auto; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+    .faq-q { gap: 14px; }
+    .faq-toggle { width: 32px; height: 32px; font-size: 16px; }
+    .why-prose { font-size: 17px; }
+    .why-sign { gap: 14px; }
+    .summary-stat-row { gap: 8px; }
+    .lead-form { grid-template-columns: 1fr; gap: 14px; }
+    .lead-submit { width: 100%; justify-self: stretch; }
+  }
+
+  @media (max-width: 380px) {
+    .ticker-item { margin: 0 12px; }
+    .logo { font-size: 22px; }
+    .nav-cta { padding: 9px 14px; font-size: 12px; }
+    .phone-frame { width: 96vw; max-width: 300px; }
+    .floating-card { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item"><span>●</span> AI Receptionist</span>
+    <span class="ticker-item"><span>●</span> 24/7 Call Coverage</span>
+    <span class="ticker-item"><span>●</span> Lead Capture and Booking</span>
+    <span class="ticker-item"><span>●</span> Built for Med Spas</span>
+    <span class="ticker-item"><span>●</span> Pay Only After Results</span>
+    <span class="ticker-item"><span>●</span> AI Receptionist</span>
+    <span class="ticker-item"><span>●</span> 24/7 Call Coverage</span>
+    <span class="ticker-item"><span>●</span> Lead Capture and Booking</span>
+    <span class="ticker-item"><span>●</span> Built for Med Spas</span>
+    <span class="ticker-item"><span>●</span> Pay Only After Results</span>
+  </div>
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo" aria-label="Swiftline">
+      <span class="swift">Swift</span><span class="line">line</span><span class="dot">.</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#why">Why Swiftline</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <button data-cal-namespace="demo" data-cal-link="eman-swiftline/15min" data-cal-config='{"layout":"month_view"}' class="nav-cta">Book a demo</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-eyebrow">
+        <span class="hero-pulse"></span>
+        AI Receptionist for Med Spas
+      </div>
+      <h1 class="hero-title">
+        Never miss a call. <em>Never miss a <span class="accent">booking</span>.</em>
+      </h1>
+      <p class="hero-sub">
+        Swiftline picks up every call, answers questions, and books the consult. You don't pay a cent until we book your first five.
+      </p>
+      <div class="hero-cta-row">
+        <button data-cal-namespace="demo" data-cal-link="eman-swiftline/15min" data-cal-config='{"layout":"month_view"}' class="btn-primary">
+          Book your demo
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <a href="tel:+18555555555" class="btn-secondary">
+          <span class="phone-icon">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+              <path d="M3 4C3 3.44772 3.44772 3 4 3H6L7.5 6L6 7C6.5 8.5 7.5 9.5 9 10L10 8.5L13 10V12C13 12.5523 12.5523 13 12 13C7.02944 13 3 8.97056 3 4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          Hear it live · (855) 555 5555
+        </a>
+      </div>
+      <div class="hero-foot">
+        <div class="hero-foot-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+            <path d="M5 10L8.5 13.5L15 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="hero-foot-text">
+          <strong>Pay nothing until we book your first 5 consults.</strong> No setup fee, no monthly charge, no risk.
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="floating-card floating-card-1">
+        <div class="fc-label">Caller</div>
+        <div class="fc-stat">11:42 PM</div>
+        <div class="fc-detail">picked up on ring 1</div>
+      </div>
+
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="call-status">
+            <div class="call-status-label">Live · Incoming Call</div>
+            <div class="call-name">Sarah M.</div>
+            <div class="call-time">11:42 PM · After hours</div>
+          </div>
+          <div class="transcript">
+            <div class="msg ai">
+              <div class="msg-label">Swiftline AI</div>
+              Hi, thanks for calling Glow Aesthetic. I can help you book a consult. What brings you in?
+            </div>
+            <div class="msg client">
+              <div class="msg-label">Caller</div>
+              I saw your Botox special on Instagram. Anything Saturday?
+            </div>
+            <div class="msg ai">
+              <div class="msg-label">Swiftline AI</div>
+              Saturday at 2:30 with Dr. Reyes works. Want me to lock that in?
+            </div>
+            <div class="msg client">
+              <div class="msg-label">Caller</div>
+              Yes please.
+            </div>
+          </div>
+          <div class="booking-confirm">
+            <div class="booking-confirm-label">Booked</div>
+            <div class="booking-confirm-text">Sat 2:30 PM · Botox Consult · Confirmed</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="floating-card floating-card-2">
+        <div class="fc-label">Booked</div>
+        <div class="fc-stat">+1</div>
+        <div class="fc-detail">while you slept</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="compat-band">
+  <div class="compat-inner">
+    <div class="compat-eyebrow">Works with what you already use</div>
+    <h3 class="compat-headline">Whatever booking software runs your front desk, <em>Swiftline plays nicely with it</em>.</h3>
+    <p class="compat-sub">We handle the integration during onboarding. You don't switch tools, you don't migrate calendars, you just stop missing calls.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-eyebrow">The cost of a missed call</div>
+  <h2 class="section-title">Every unanswered ring is a competitor's <em>new patient</em>.</h2>
+  <p class="section-sub">Med spa front desks are buried in treatments. Calls roll to voicemail. Leads who saw your ad at 9 PM book somewhere else by morning. The math gets ugly fast.</p>
+
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="problem-stat">38<sup>%</sup></div>
+      <h3 class="problem-headline">of inbound calls go unanswered</h3>
+      <p class="problem-text">Industry average for service businesses. Your front desk is in a treatment room. Calls roll to voicemail. And voicemails don't book consults.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-stat">47<sup>%</sup></div>
+      <h3 class="problem-headline">of after hours leads book elsewhere</h3>
+      <p class="problem-text">Your Instagram ad runs all night. Your phone doesn't. By the time you call back at 9 AM, they've already booked at the spa down the block.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-stat">$840</div>
+      <h3 class="problem-headline">average value of a single lead</h3>
+      <p class="problem-text">Between the consult, the treatment, and lifetime value, every dropped call is real money. Triple digits gone before lunch is normal.</p>
+    </div>
+  </div>
+</section>
+
+<section class="solution" id="how">
+  <div class="solution-inner">
+    <div class="section-eyebrow">How Swiftline works</div>
+    <h2 class="section-title">From cold lead to booked consult <em>in under two minutes</em>.</h2>
+    <p class="section-sub">No new hardware. No staff retraining. We forward your line through Swiftline and the calls just start getting handled.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M3 6C3 4.34315 4.34315 3 6 3H14C15.6569 3 17 4.34315 17 6V14C17 15.6569 15.6569 17 14 17H6C4.34315 17 3 15.6569 3 14V6Z" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M7 8H13M7 12H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="step-num">01 · Onboarding</span>
+        <h3 class="step-title">We learn your spa.</h3>
+        <p class="step-text">Your services, pricing, providers, hours, brand voice. White glove setup, done in seven days.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M4 6C4 4.89543 4.89543 4 6 4H8L9.5 7L8 8C8.5 9.5 9.5 10.5 11 11L12 9.5L15 11V13C15 14.1046 14.1046 15 13 15C7.47715 15 4 11.5228 4 6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="step-num">02 · Goes live</span>
+        <h3 class="step-title">Your line, but smarter.</h3>
+        <p class="step-text">Forward your number. Swiftline picks up on the first ring, sounds polished, qualifies the lead, books the consult.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <rect x="3" y="4" width="14" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M3 8H17M7 3V5M13 3V5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="step-num">03 · Books direct</span>
+        <h3 class="step-title">Straight into your calendar.</h3>
+        <p class="step-text">Bookings drop into whatever booking software you already use. Confirmation text fires automatically.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M3 10H17M3 6H17M3 14H17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="step-num">04 · You stay informed</span>
+        <h3 class="step-title">A weekly summary, not a saas.</h3>
+        <p class="step-text">Every Monday, a clean recap email lands in your inbox. Calls handled, consults booked, missed leads. That's it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="section-eyebrow">What's inside</div>
+  <h2 class="section-title">A front desk that does <em>everything</em>, except small talk.</h2>
+
+  <div class="features">
+    <div class="features-list">
+      <div class="feature-item">
+        <div class="feature-num">01</div>
+        <div>
+          <h3 class="feature-headline">24/7 call coverage</h3>
+          <p class="feature-text">Every call, every hour, every day. Sundays. Holidays. Two in the morning. The phone is always answered.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">02</div>
+        <div>
+          <h3 class="feature-headline">Direct booking into your calendar</h3>
+          <p class="feature-text">Whatever booking software you already use, Swiftline drops bookings into it. No new tools. No migration.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">03</div>
+        <div>
+          <h3 class="feature-headline">Lead capture for after hours</h3>
+          <p class="feature-text">When someone calls outside business hours, Swiftline takes the lead, books or schedules a callback, and texts your team.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">04</div>
+        <div>
+          <h3 class="feature-headline">Smart escalation</h3>
+          <p class="feature-text">Anything medical, complex, or sensitive routes straight to your staff. Swiftline knows when to hand off.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">05</div>
+        <div>
+          <h3 class="feature-headline">Confirmation and reminder texts</h3>
+          <p class="feature-text">Automatic SMS confirmations. Day before reminders. Cuts no shows before they happen.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">06</div>
+        <div>
+          <h3 class="feature-headline">Weekly recap, in your inbox</h3>
+          <p class="feature-text">Every Monday, a clean summary of what happened on the phone last week. No login. No dashboard. Just the numbers.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="features-visual">
+      <div class="summary-header">
+        <div>
+          <div class="summary-from">From Swiftline</div>
+          <div class="summary-subject">Your week at Glow Aesthetic</div>
+        </div>
+        <div class="summary-date">Mon · 8 AM</div>
+      </div>
+      <p class="summary-greeting">Hey Lauren, here's how the phones did this past week.</p>
+      <div class="summary-stat-row">
+        <div class="summary-stat">
+          <div class="summary-stat-label">Calls Handled</div>
+          <div class="summary-stat-num">42</div>
+        </div>
+        <div class="summary-stat">
+          <div class="summary-stat-label">Consults Booked</div>
+          <div class="summary-stat-num">19</div>
+        </div>
+      </div>
+      <div class="summary-list">
+        <div class="summary-list-label">Highlights</div>
+        <div class="summary-row">
+          <span class="summary-row-dot book"></span>
+          <span class="summary-row-text"><strong>Booked</strong> · Botox consult, Saturday 2:30 PM</span>
+          <span class="summary-row-time">Tue 11:42 PM</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-row-dot lead"></span>
+          <span class="summary-row-text"><strong>Lead captured</strong> · Filler inquiry, your team to follow up</span>
+          <span class="summary-row-time">Wed 9:14 AM</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-row-dot book"></span>
+          <span class="summary-row-text"><strong>Booked</strong> · Hydrafacial, Thursday 10 AM</span>
+          <span class="summary-row-time">Wed 7:38 PM</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-row-dot lead"></span>
+          <span class="summary-row-text"><strong>Lead captured</strong> · Laser pricing question</span>
+          <span class="summary-row-time">Fri 11:02 PM</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY SWIFTLINE -->
+<section class="why" id="why">
+  <div class="why-inner">
+    <div class="section-eyebrow">Why Swiftline</div>
+    <h2 class="why-title">I built this because I was the lead nobody <em>answered</em>.</h2>
+
+    <div class="why-prose">
+      <p>A while back I was trying to book a med spa consult for myself. I called one place, voicemail. Called another, voicemail. Called five more. Either no answer, or someone too busy to actually help. After about twenty minutes of dialing, I gave up and booked with the first place that picked up the phone. They weren't the best option. They were just the only option that answered.</p>
+
+      <p>That bothered me. Not because I had a bad experience, but because somewhere out there, six other med spa owners had spent real money on ads and SEO and Instagram to get me to call them. And then a ringing phone undid all of it.</p>
+
+      <p>Swiftline exists because that math is broken everywhere in this industry. Not because anyone's doing a bad job. Because your front desk is one person, your phone has no off switch, and your competitors are one ring away.</p>
+
+      <p>This is built specifically for med spas. Not dentists, not law firms, not generic small business. Med spa pricing, med spa services, med spa rhythms. Setup is hands on, the voice gets tuned to how your team actually sounds, and the bookings drop into whatever calendar you already use.</p>
+
+      <p>And the offer is simple. You don't pay anything until Swiftline books you five consults. No setup fee, no monthly charge, no risk. If it works, you pay. If it doesn't, you don't.</p>
+    </div>
+
+    <div class="why-sign">
+      <div class="why-sign-name">Eman, Founder of Swiftline</div>
+    </div>
+  </div>
+</section>
+
+<section class="guarantee-wrap" id="guarantee">
+  <div class="guarantee">
+    <div class="guarantee-inner">
+      <div>
+        <div class="guarantee-eyebrow">The Swiftline guarantee</div>
+        <h2 class="guarantee-title">You don't pay until we <em>book your first five</em>.</h2>
+        <p class="guarantee-text">No setup fee, no monthly charge, no deposit. We do the work, prove it works, and you pay only after Swiftline books you five qualified consults. If it never gets you there, you owe nothing. We carry the risk so you don't have to.</p>
+      </div>
+      <div class="guarantee-seal">
+        <div class="seal-num">5</div>
+        <div class="seal-label">Consults · Then You Pay</div>
+        <div class="seal-sub">no risk, no deposit</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing-section" id="pricing">
+  <div class="section-eyebrow">Investment</div>
+  <h2 class="section-title">One simple price. <em>And you don't pay it until it works.</em></h2>
+  <p class="section-sub">No tiers, no upsells, no enterprise call. One price for everything Swiftline does. And nothing comes out of your account until we've booked you five consults.</p>
+
+  <div class="price-single">
+    <div class="price-single-inner">
+      <div class="price-single-left">
+        <div class="price-tier">Swiftline · All in</div>
+        <h3 class="price-name">Everything included</h3>
+        <p class="price-desc">For independent med spas, multi location groups, and everyone in between. One price covers it all.</p>
+        <div class="price-amount">
+          <span class="price-amount-num">$497</span>
+          <span class="price-amount-period">/ month</span>
+        </div>
+        <div class="price-setup">+ $500 one time setup</div>
+        <div class="price-trial">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M4 8L7 11L12 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          You don't pay either until we book your first 5 consults.
+        </div>
+      </div>
+      <div class="price-single-right">
+        <ul class="price-features">
+          <li><span class="price-check">✓</span> 24/7 AI receptionist coverage</li>
+          <li><span class="price-check">✓</span> Books into your existing calendar</li>
+          <li><span class="price-check">✓</span> Unlimited call volume</li>
+          <li><span class="price-check">✓</span> After hours lead capture</li>
+          <li><span class="price-check">✓</span> SMS confirmations and reminders</li>
+          <li><span class="price-check">✓</span> Custom voice and brand persona</li>
+          <li><span class="price-check">✓</span> Smart escalation to your team</li>
+          <li><span class="price-check">✓</span> Weekly recap email</li>
+          <li><span class="price-check">✓</span> Hands on setup and tuning</li>
+        </ul>
+        <button data-cal-namespace="demo" data-cal-link="eman-swiftline/15min" data-cal-config='{"layout":"month_view"}' class="price-cta">Book a demo</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq-section" id="faq">
+  <div class="section-eyebrow">Common questions</div>
+  <h2 class="section-title">The honest answers.</h2>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q">
+        <div class="faq-q-text">Will my patients know they're talking to AI?</div>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">Most don't. Swiftline is built to sound like a polished, well trained receptionist. Calm, on brand, human paced. We can disclose that it's AI on every call if you prefer (some states require it), but in practice callers focus on getting their consult booked, not parsing the voice.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">
+        <div class="faq-q-text">How long does setup take?</div>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">Seven business days from signed agreement to live calls. We handle the booking software integration, voice training, scripting, and live test calls. You approve before we go live.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">
+        <div class="faq-q-text">Does Swiftline collect medical information?</div>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">No. Swiftline is intentionally a lead capture and booking layer. The AI only collects what's needed to book a consult: name, contact info, service interest, and preferred time. Anything medical (current medications, conditions, prior treatments) is left for your provider to handle in person, where they're already equipped for it. That keeps things simple, fast, and well outside any sensitive data territory.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">
+        <div class="faq-q-text">What if Swiftline can't answer a question?</div>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">It escalates gracefully. Either to a live team member during business hours, or to a structured callback request that lands in your inbox. No caller gets dropped or stranded.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">
+        <div class="faq-q-text">How does the "no payment until 5 consults" guarantee actually work?</div>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">You sign up. We do the full setup at no cost. Swiftline goes live on your line. We don't charge you a cent until five qualified consults are booked through it. Once that fifth booking lands, the $500 setup and your first month bill. If we never get you to five, you owe nothing and we part as friends. The risk is on us, not you.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">
+        <div class="faq-q-text">What booking software do you work with?</div>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">All the common ones. If you have a calendar your front desk uses today, we'll integrate Swiftline with it during onboarding. You don't switch tools, migrate data, or change anything about how your team works. We adapt to you.</div>
+    </div>
+  </div>
+</section>
+
+<!-- LEAD CAPTURE -->
+<section class="lead-section" id="contact">
+  <div class="lead-inner">
+    <div class="section-eyebrow">Not ready for a demo?</div>
+    <h2 class="section-title">Drop your info. <em>I'll reach out personally.</em></h2>
+    <p class="section-sub">No sales pitch, no automation. Just a real conversation about whether Swiftline is right for your spa.</p>
+
+    <form class="lead-form" id="leadForm" novalidate>
+      <div class="lead-field">
+        <label for="lead-name">Your name</label>
+        <input type="text" id="lead-name" name="name" required maxlength="100" autocomplete="name">
+      </div>
+      <div class="lead-field">
+        <label for="lead-email">Email</label>
+        <input type="email" id="lead-email" name="email" required maxlength="200" autocomplete="email">
+      </div>
+      <div class="lead-field">
+        <label for="lead-spa">Med spa name</label>
+        <input type="text" id="lead-spa" name="spaName" required maxlength="200" autocomplete="organization">
+      </div>
+      <div class="lead-field lead-field-full">
+        <label for="lead-message">What's on your mind? <span class="lead-optional">(optional)</span></label>
+        <textarea id="lead-message" name="message" rows="3" maxlength="2000"></textarea>
+      </div>
+      <!-- Honeypot, hidden from users -->
+      <div class="lead-honeypot" aria-hidden="true">
+        <label for="lead-website">Website</label>
+        <input type="text" id="lead-website" name="honeypot" tabindex="-1" autocomplete="off">
+      </div>
+      <button type="submit" class="lead-submit" id="leadSubmit">
+        <span class="lead-submit-text">Send it over</span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <div class="lead-status" id="leadStatus" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+</section>
+
+<section class="final-cta" id="demo">
+  <div class="final-cta-inner">
+    <h2>Stop missing calls. <em>Start filling chairs.</em></h2>
+    <p>Book a 20 minute demo. We'll walk you through Swiftline live, on real call recordings, integrated with whatever booking software you already use. No slide deck. No hard sell.</p>
+    <div class="final-cta-row">
+      <button data-cal-namespace="demo" data-cal-link="eman-swiftline/15min" data-cal-config='{"layout":"month_view"}' class="btn-primary">
+        Book your demo
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <a href="tel:+18555555555" class="btn-secondary">
+        <span class="phone-icon">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <path d="M3 4C3 3.44772 3.44772 3 4 3H6L7.5 6L6 7C6.5 8.5 7.5 9.5 9 10L10 8.5L13 10V12C13 12.5523 12.5523 13 12 13C7.02944 13 3 8.97056 3 4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        Or hear it live · (855) 555 5555
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">
+        <span class="swift">Swift</span><span class="line">line</span><span class="dot">.</span>
+      </div>
+      <p class="footer-tagline">An AI receptionist built for med spas. So you stop losing leads to a ringing phone.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <ul>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#guarantee">Guarantee</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#why">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="mailto:eman@getswiftline.com">eman@getswiftline.com</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+        <li><a href="/terms">Terms</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Swiftline. Built for med spas.</div>
+    <div>San Francisco · Remote</div>
+  </div>
+</footer>
+
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // Lead form submission
+  const leadForm = document.getElementById('leadForm');
+  const leadStatus = document.getElementById('leadStatus');
+  const leadSubmit = document.getElementById('leadSubmit');
+  const leadSubmitText = leadSubmit?.querySelector('.lead-submit-text');
+
+  if (leadForm) {
+    leadForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      leadStatus.textContent = '';
+      leadStatus.className = 'lead-status';
+      leadSubmit.disabled = true;
+      leadSubmitText.textContent = 'Sending...';
+
+      const formData = new FormData(leadForm);
+      const payload = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        spaName: formData.get('spaName'),
+        message: formData.get('message') || '',
+        honeypot: formData.get('honeypot') || ''
+      };
+
+      try {
+        const res = await fetch('/api/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          leadStatus.textContent = 'Got it. I\'ll be in touch within a day.';
+          leadStatus.className = 'lead-status success';
+          leadForm.reset();
+          leadSubmitText.textContent = 'Sent ✓';
+          // Track conversion in Plausible
+          if (window.plausible) window.plausible('Lead Submitted');
+        } else {
+          leadStatus.textContent = data.error || 'Something went wrong. Please try again.';
+          leadStatus.className = 'lead-status error';
+          leadSubmit.disabled = false;
+          leadSubmitText.textContent = 'Send it over';
+        }
+      } catch (err) {
+        leadStatus.textContent = 'Could not connect. Please check your connection and try again.';
+        leadStatus.className = 'lead-status error';
+        leadSubmit.disabled = false;
+        leadSubmitText.textContent = 'Send it over';
+      }
+    });
+  }
+
+  // Track demo button clicks (Cal.com handles the actual booking)
+  document.querySelectorAll('[data-cal-link]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (window.plausible) window.plausible('Demo Click');
+    });
+  });
+
+  // Track phone number clicks
+  document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.plausible) window.plausible('Phone Click');
+    });
+  });
+</script>
+
+</body>
+</html>
