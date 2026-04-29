@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="warmGlow" cx="80%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="#C9A96E" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#C9A96E" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#F4EFE6"/>
+  <rect width="1200" height="630" fill="url(#warmGlow)"/>
+
+  <!-- Wordmark -->
+  <text x="80" y="100" font-family="Georgia, serif" font-size="34" font-weight="400" fill="#0E1413" letter-spacing="-1">
+    Swift<tspan font-style="italic" fill="#3F5246">line</tspan><tspan fill="#B8954E">.</tspan>
+  </text>
+
+  <!-- Eyebrow -->
+  <line x1="80" y1="240" x2="120" y2="240" stroke="#3F5246" stroke-width="1"/>
+  <text x="135" y="245" font-family="ui-monospace, monospace" font-size="14" fill="#3F5246" letter-spacing="2.5">AI RECEPTIONIST FOR MED SPAS</text>
+
+  <!-- Headline (smaller, fits in 740px) -->
+  <text x="80" y="335" font-family="Georgia, serif" font-size="60" font-weight="400" fill="#0E1413" letter-spacing="-1.5">Never miss a call.</text>
+  <text x="80" y="405" font-family="Georgia, serif" font-style="italic" font-size="60" font-weight="400" fill="#0E1413" letter-spacing="-1.5">Never miss a booking.</text>
+
+  <!-- Call wave arcs (subtle, behind phone) -->
+  <g transform="translate(990, 365)" opacity="0.85">
+    <circle cx="0" cy="0" r="160" fill="none" stroke="#C9A96E" stroke-width="1" stroke-opacity="0.22"/>
+    <circle cx="0" cy="0" r="200" fill="none" stroke="#C9A96E" stroke-width="1" stroke-opacity="0.14"/>
+    <circle cx="0" cy="0" r="245" fill="none" stroke="#C9A96E" stroke-width="0.8" stroke-opacity="0.08"/>
+  </g>
+
+  <!-- Phone (smaller, repositioned to fit between waves and right edge) -->
+  <g transform="translate(900, 195)">
+    <rect x="0" y="0" width="180" height="320" rx="32" fill="#0E1413"/>
+    <rect x="9" y="9" width="162" height="302" rx="25" fill="#1a2220"/>
+    <rect x="65" y="20" width="50" height="12" rx="6" fill="#000"/>
+
+    <!-- Screen content -->
+    <text x="90" y="78" font-family="ui-monospace, monospace" font-size="11" fill="#C9A96E" text-anchor="middle" letter-spacing="2">INCOMING CALL</text>
+    <text x="90" y="120" font-family="Georgia, serif" font-size="20" fill="#F4EFE6" text-anchor="middle">Sarah M.</text>
+    <text x="90" y="142" font-family="ui-monospace, monospace" font-size="10" fill="#F4EFE6" fill-opacity="0.5" text-anchor="middle">11:42 PM</text>
+
+    <!-- Pickup button -->
+    <circle cx="90" cy="235" r="32" fill="#C9A96E"/>
+    <!-- Phone receiver icon -->
+    <path d="M 78 226 Q 78 220, 84 220 L 90 220 L 95 230 L 89 235 Q 92 244, 100 247 L 105 241 L 114 247 L 114 254 Q 114 258, 110 258 Q 90 258, 78 237 Z"
+          fill="#0E1413"/>
+  </g>
+
+  <!-- Bottom band -->
+  <line x1="80" y1="540" x2="1120" y2="540" stroke="#0E1413" stroke-opacity="0.12" stroke-width="1"/>
+  <text x="80" y="585" font-family="-apple-system, system-ui, sans-serif" font-size="22" font-weight="500" fill="#0E1413">Pay nothing until we book your first 5 consults.</text>
+  <text x="1120" y="585" font-family="ui-monospace, monospace" font-size="14" fill="#3F5246" text-anchor="end" letter-spacing="2">getswiftline.com</text>
+</svg>

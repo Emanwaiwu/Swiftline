@@ -81,7 +81,44 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  button { font-family: inherit; }
+  button { font-family: inherit; cursor: pointer; }
+  a, button, [data-cal-link], [role="button"] { cursor: pointer; }
+
+  /* Scroll-in animations - subtle fade up */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* Stagger child reveals */
+  .reveal-stagger > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal-stagger.in > *:nth-child(1) { transition-delay: 0s; }
+  .reveal-stagger.in > *:nth-child(2) { transition-delay: 0.08s; }
+  .reveal-stagger.in > *:nth-child(3) { transition-delay: 0.16s; }
+  .reveal-stagger.in > *:nth-child(4) { transition-delay: 0.24s; }
+  .reveal-stagger.in > *:nth-child(5) { transition-delay: 0.32s; }
+  .reveal-stagger.in > *:nth-child(6) { transition-delay: 0.40s; }
+  .reveal-stagger.in > * {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* Disable for reduced motion users */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal, .reveal-stagger > * {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
   html { scroll-behavior: smooth; }
   body {
     font-family: var(--sans);
@@ -1735,13 +1772,13 @@
             <path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
           </svg>
         </button>
-        <a href="tel:+18555555555" class="btn-secondary">
+        <a href="tel:+18553013320" class="btn-secondary">
           <span class="phone-icon">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
               <path d="M3 4C3 3.44772 3.44772 3 4 3H6L7.5 6L6 7C6.5 8.5 7.5 9.5 9 10L10 8.5L13 10V12C13 12.5523 12.5523 13 12 13C7.02944 13 3 8.97056 3 4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
             </svg>
           </span>
-          Hear it live · (855) 555 5555
+          Hear it live · (855) 301 3320
         </a>
       </div>
       <div class="hero-foot">
@@ -1805,7 +1842,7 @@
 </section>
 
 <section class="compat-band">
-  <div class="compat-inner">
+  <div class="compat-inner reveal">
     <div class="compat-eyebrow">Works with what you already use</div>
     <h3 class="compat-headline">Whatever booking software runs your front desk, <em>Swiftline plays nicely with it</em>.</h3>
     <p class="compat-sub">We handle the integration during onboarding. You don't switch tools, you don't migrate calendars, you just stop missing calls.</p>
@@ -1813,11 +1850,11 @@
 </section>
 
 <section class="section">
-  <div class="section-eyebrow">The cost of a missed call</div>
-  <h2 class="section-title">Every unanswered ring is a competitor's <em>new patient</em>.</h2>
-  <p class="section-sub">Med spa front desks are buried in treatments. Calls roll to voicemail. Leads who saw your ad at 9 PM book somewhere else by morning. The math gets ugly fast.</p>
+  <div class="section-eyebrow reveal">The cost of a missed call</div>
+  <h2 class="section-title reveal">Every unanswered ring is a competitor's <em>new patient</em>.</h2>
+  <p class="section-sub reveal">Med spa front desks are buried in treatments. Calls roll to voicemail. Leads who saw your ad at 9 PM book somewhere else by morning. The math gets ugly fast.</p>
 
-  <div class="problem-grid">
+  <div class="problem-grid reveal-stagger">
     <div class="problem-card">
       <div class="problem-stat">38<sup>%</sup></div>
       <h3 class="problem-headline">of inbound calls go unanswered</h3>
@@ -1838,11 +1875,11 @@
 
 <section class="solution" id="how">
   <div class="solution-inner">
-    <div class="section-eyebrow">How Swiftline works</div>
-    <h2 class="section-title">From cold lead to booked consult <em>in under two minutes</em>.</h2>
-    <p class="section-sub">No new hardware. No staff retraining. We forward your line through Swiftline and the calls just start getting handled.</p>
+    <div class="section-eyebrow reveal">How Swiftline works</div>
+    <h2 class="section-title reveal">From cold lead to booked consult <em>in under two minutes</em>.</h2>
+    <p class="section-sub reveal">No new hardware. No staff retraining. We forward your line through Swiftline and the calls just start getting handled.</p>
 
-    <div class="steps">
+    <div class="steps reveal-stagger">
       <div class="step">
         <div class="step-icon">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -1890,11 +1927,11 @@
 </section>
 
 <section class="section" id="features">
-  <div class="section-eyebrow">What's inside</div>
-  <h2 class="section-title">A front desk that does <em>everything</em>, except small talk.</h2>
+  <div class="section-eyebrow reveal">What's inside</div>
+  <h2 class="section-title reveal">A front desk that does <em>everything</em>, except small talk.</h2>
 
   <div class="features">
-    <div class="features-list">
+    <div class="features-list reveal-stagger">
       <div class="feature-item">
         <div class="feature-num">01</div>
         <div>
@@ -1939,7 +1976,7 @@
       </div>
     </div>
 
-    <div class="features-visual">
+    <div class="features-visual reveal">
       <div class="summary-header">
         <div>
           <div class="summary-from">From Swiftline</div>
@@ -1987,7 +2024,7 @@
 
 <!-- WHY SWIFTLINE -->
 <section class="why" id="why">
-  <div class="why-inner">
+  <div class="why-inner reveal">
     <div class="section-eyebrow">Why Swiftline</div>
     <h2 class="why-title">I built this because I was the lead nobody <em>answered</em>.</h2>
 
@@ -2010,7 +2047,7 @@
 </section>
 
 <section class="guarantee-wrap" id="guarantee">
-  <div class="guarantee">
+  <div class="guarantee reveal">
     <div class="guarantee-inner">
       <div>
         <div class="guarantee-eyebrow">The Swiftline guarantee</div>
@@ -2027,11 +2064,11 @@
 </section>
 
 <section class="pricing-section" id="pricing">
-  <div class="section-eyebrow">Investment</div>
-  <h2 class="section-title">One simple price. <em>And you don't pay it until it works.</em></h2>
-  <p class="section-sub">No tiers, no upsells, no enterprise call. One price for everything Swiftline does. And nothing comes out of your account until we've booked you five consults.</p>
+  <div class="section-eyebrow reveal">Investment</div>
+  <h2 class="section-title reveal">One simple price. <em>And you don't pay it until it works.</em></h2>
+  <p class="section-sub reveal">No tiers, no upsells, no enterprise call. One price for everything Swiftline does. And nothing comes out of your account until we've booked you five consults.</p>
 
-  <div class="price-single">
+  <div class="price-single reveal">
     <div class="price-single-inner">
       <div class="price-single-left">
         <div class="price-tier">Swiftline · All in</div>
@@ -2068,10 +2105,10 @@
 </section>
 
 <section class="faq-section" id="faq">
-  <div class="section-eyebrow">Common questions</div>
-  <h2 class="section-title">The honest answers.</h2>
+  <div class="section-eyebrow reveal">Common questions</div>
+  <h2 class="section-title reveal">The honest answers.</h2>
 
-  <div class="faq-list">
+  <div class="faq-list reveal-stagger">
     <div class="faq-item">
       <div class="faq-q">
         <div class="faq-q-text">Will my patients know they're talking to AI?</div>
@@ -2119,7 +2156,7 @@
 
 <!-- LEAD CAPTURE -->
 <section class="lead-section" id="contact">
-  <div class="lead-inner">
+  <div class="lead-inner reveal">
     <div class="section-eyebrow">Not ready for a demo?</div>
     <h2 class="section-title">Drop your info. <em>I'll reach out personally.</em></h2>
     <p class="section-sub">No sales pitch, no automation. Just a real conversation about whether Swiftline is right for your spa.</p>
@@ -2158,7 +2195,7 @@
 </section>
 
 <section class="final-cta" id="demo">
-  <div class="final-cta-inner">
+  <div class="final-cta-inner reveal">
     <h2>Stop missing calls. <em>Start filling chairs.</em></h2>
     <p>Book a 20 minute demo. We'll walk you through Swiftline live, on real call recordings, integrated with whatever booking software you already use. No slide deck. No hard sell.</p>
     <div class="final-cta-row">
@@ -2168,13 +2205,13 @@
           <path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
       </button>
-      <a href="tel:+18555555555" class="btn-secondary">
+      <a href="tel:+18553013320" class="btn-secondary">
         <span class="phone-icon">
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
             <path d="M3 4C3 3.44772 3.44772 3 4 3H6L7.5 6L6 7C6.5 8.5 7.5 9.5 9 10L10 8.5L13 10V12C13 12.5523 12.5523 13 12 13C7.02944 13 3 8.97056 3 4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
           </svg>
         </span>
-        Or hear it live · (855) 555 5555
+        Or hear it live · (855) 301 3320
       </a>
     </div>
   </div>
@@ -2215,6 +2252,23 @@
 </footer>
 
 <script>
+  // Scroll-in reveal animations
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -60px 0px'
+  });
+
+  document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => {
+    revealObserver.observe(el);
+  });
+
   // FAQ accordion
   document.querySelectorAll('.faq-item').forEach(item => {
     item.addEventListener('click', () => {
