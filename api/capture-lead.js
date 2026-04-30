@@ -1,4 +1,5 @@
 import { Resend } from 'resend';
+import { logToNotion } from './_lib/notion.js';
 
 function escapeHtml(str) {
   return String(str)
@@ -32,6 +33,16 @@ export default async function handler(req, res) {
 
   if (!resendKey || !fromEmail || !toEmail) {
     console.log('LEAD CAPTURED (Resend not configured):', { name, email, spa_name, summary });
+    // Still try to log to Notion since Resend is the only thing missing
+    await logToNotion({
+      type: 'lead',
+      name,
+      email,
+      spaName: spa_name,
+      notes: summary,
+      status: 'New',
+      source: 'Voice AI'
+    });
     return res.status(200).json({
       success: true,
       message: 'Got it. Tell the caller Eman will reach out.'
@@ -62,6 +73,17 @@ export default async function handler(req, res) {
         </div>
       `,
       text: `Lead from voice AI call\n\n${name ? `Name: ${name}\n` : ''}Email: ${email}\n${spa_name ? `Med spa: ${spa_name}\n` : ''}${summary ? `\nConversation summary:\n${summary}` : ''}`
+    });
+
+    // Log to Notion (fails silently if not configured)
+    await logToNotion({
+      type: 'lead',
+      name,
+      email,
+      spaName: spa_name,
+      notes: summary,
+      status: 'New',
+      source: 'Voice AI'
     });
 
     return res.status(200).json({

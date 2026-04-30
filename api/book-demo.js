@@ -1,4 +1,5 @@
 import { Resend } from 'resend';
+import { logToNotion } from './_lib/notion.js';
 
 // Helper: parse a natural-language time into a Cal.com slot
 // Retell will pass us something like "tomorrow at 2pm" - we need ISO 8601 UTC
@@ -22,7 +23,7 @@ export default async function handler(req, res) {
   const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
   const args = body.args || body;
 
-  const { name, email, preferred_time_iso, notes } = args;
+  const { name, email, preferred_time_iso, notes, spa_name } = args;
 
   if (!name || !email || !preferred_time_iso) {
     return res.status(200).json({
@@ -93,7 +94,7 @@ export default async function handler(req, res) {
           from: `Swiftline AI <${fromEmail}>`,
           to: [toEmail],
           replyTo: email,
-          subject: `📞 New demo booked via voice AI: ${name}`,
+          subject: `📞 New demo booked via voice AI: ${name}${spa_name ? ' (' + spa_name + ')' : ''}`,
           html: `
             <div style="font-family: -apple-system, sans-serif; max-width: 560px; margin: 0 auto; padding: 32px 24px; color: #0E1413;">
               <h2 style="font-family: Georgia, serif; font-weight: 400; font-size: 24px; margin: 0 0 8px;">Demo booked via voice AI</h2>
@@ -102,6 +103,7 @@ export default async function handler(req, res) {
               <table style="width: 100%; border-collapse: collapse;">
                 <tr><td style="padding: 12px 0; border-bottom: 1px solid #EBE4D6; color: #4A5D4F; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;">Name</td><td style="padding: 12px 0; border-bottom: 1px solid #EBE4D6; text-align: right;">${escapeHtml(name)}</td></tr>
                 <tr><td style="padding: 12px 0; border-bottom: 1px solid #EBE4D6; color: #4A5D4F; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;">Email</td><td style="padding: 12px 0; border-bottom: 1px solid #EBE4D6; text-align: right;"><a href="mailto:${escapeHtml(email)}" style="color: #B8954E;">${escapeHtml(email)}</a></td></tr>
+                ${spa_name ? `<tr><td style="padding: 12px 0; border-bottom: 1px solid #EBE4D6; color: #4A5D4F; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;">Med spa</td><td style="padding: 12px 0; border-bottom: 1px solid #EBE4D6; text-align: right;">${escapeHtml(spa_name)}</td></tr>` : ''}
                 <tr><td style="padding: 12px 0; border-bottom: 1px solid #EBE4D6; color: #4A5D4F; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;">Time</td><td style="padding: 12px 0; border-bottom: 1px solid #EBE4D6; text-align: right;">${escapeHtml(preferred_time_iso)}</td></tr>
               </table>
 
@@ -110,13 +112,25 @@ export default async function handler(req, res) {
               <p style="margin-top: 32px; padding-top: 24px; border-top: 1px solid #EBE4D6; color: #4A5D4F; font-size: 12px;">Cal.com booking ID: ${calData.data?.uid || 'unknown'}</p>
             </div>
           `,
-          text: `Demo booked via voice AI\n\nName: ${name}\nEmail: ${email}\nTime: ${preferred_time_iso}\n${notes ? `\nNotes: ${notes}` : ''}\n\nCal.com booking ID: ${calData.data?.uid || 'unknown'}`
+          text: `Demo booked via voice AI\n\nName: ${name}\nEmail: ${email}\n${spa_name ? `Med spa: ${spa_name}\n` : ''}Time: ${preferred_time_iso}\n${notes ? `\nNotes: ${notes}` : ''}\n\nCal.com booking ID: ${calData.data?.uid || 'unknown'}`
         });
       } catch (emailErr) {
         // Don't fail the whole call if email fails
         console.error('Email notification failed:', emailErr);
       }
     }
+
+    // Log to Notion (fails silently if not configured)
+    await logToNotion({
+      type: 'booking',
+      name,
+      email,
+      spaName: spa_name,
+      time: preferred_time_iso,
+      notes,
+      status: 'New',
+      source: 'Voice AI'
+    });
 
     // Tell the agent it succeeded - this comes back to the AI mid-call
     return res.status(200).json({
