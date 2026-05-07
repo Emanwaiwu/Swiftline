@@ -358,12 +358,12 @@
 
   h1.hero-title {
     font-family: var(--display);
-    font-size: clamp(38px, 5.6vw, 76px);
+    font-size: clamp(32px, 4.6vw, 60px);
     font-weight: 700;
-    line-height: 1.02;
-    letter-spacing: -0.035em;
+    line-height: 1.04;
+    letter-spacing: -0.03em;
     color: var(--text-1);
-    margin-bottom: 28px;
+    margin-bottom: 24px;
   }
 
   .hero-sub {
@@ -619,24 +619,38 @@
   .msg.client .msg-label { color: var(--text-3); }
   .booking-confirm {
     background: var(--ok-glow);
-    border: 1px solid rgba(74, 222, 128, 0.3);
+    border: 1px solid rgba(74, 222, 128, 0.28);
     border-radius: 8px;
     padding: 10px 12px;
-    text-align: center;
-  }
-  .booking-confirm-label {
-    font-family: var(--mono);
-    font-size: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.22em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
     color: var(--ok);
-    margin-bottom: 3px;
-  }
-  .booking-confirm-text {
     font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  .booking-confirm svg {
+    flex-shrink: 0;
+    color: var(--ok);
+  }
+  .booking-confirm span {
     color: var(--text-1);
     font-weight: 500;
   }
+  /* Floating card pulse indicator (live status) */
+  .floating-card { position: absolute; }
+  .fc-pulse {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+    animation: pulse-dot 1.6s ease-in-out infinite;
+  }
+  .fc-stat-ok { color: var(--ok) !important; }
 
   @media (max-width: 900px) {
     .hero-grid { grid-template-columns: 1fr; }
@@ -731,7 +745,8 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 16px;
   }
-  @media (max-width: 880px) { .problem-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 880px) { .problem-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .problem-grid { grid-template-columns: 1fr; } }
   .problem-card {
     background: var(--bg-1);
     border: 1px solid var(--line-1);
@@ -1116,48 +1131,78 @@
     max-width: 540px;
   }
   .guarantee-seal {
-    position: relative;
-    width: 220px; height: 220px;
-    margin: 0 auto;
+    display: none; /* legacy seal markup removed; using guarantee-panel now */
+  }
+  .guarantee-content {
+    min-width: 0;
+  }
+  .guarantee-panel {
+    background: var(--bg-2);
     border: 1px solid var(--line-3);
-    border-radius: 50%;
+    border-radius: var(--radius);
+    padding: 24px 28px 22px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background: var(--bg-2);
+    gap: 0;
+    min-width: 0;
   }
-  .guarantee-seal::before {
-    content: '';
-    position: absolute;
-    inset: 8px;
-    border: 1px dashed var(--line-2);
-    border-radius: 50%;
+  .panel-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line-1);
+    gap: 16px;
   }
-  .seal-num {
-    font-family: var(--display);
-    font-size: 76px;
-    font-weight: 700;
-    color: var(--accent);
-    line-height: 1;
-    letter-spacing: -0.04em;
-    margin-bottom: 4px;
-  }
-  .seal-label {
+  .panel-row:first-child { padding-top: 4px; }
+  .panel-row:last-of-type { border-bottom: none; }
+  .panel-label {
     font-family: var(--mono);
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.22em;
-    color: var(--text-1);
-  }
-  .seal-sub {
-    font-family: var(--mono);
-    font-size: 9px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.18em;
     color: var(--text-3);
-    margin-top: 6px;
+    flex-shrink: 0;
+  }
+  .panel-value {
+    font-family: var(--display);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-1);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    font-feature-settings: 'tnum';
+    text-align: right;
+  }
+  .panel-value-ok {
+    color: var(--ok);
+  }
+  .panel-foot {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line-1);
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+  }
+  .panel-foot-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+    animation: pulse-dot 1.6s ease-in-out infinite;
+  }
+  @media (max-width: 800px) {
+    .guarantee-panel {
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+    }
   }
 
   /* =====================================================================
@@ -1423,6 +1468,189 @@
   }
 
   /* =====================================================================
+     MOBILE / RESPONSIVE FIXES (≤ 640px and ≤ 480px)
+     ===================================================================== */
+  @media (max-width: 640px) {
+    :root {
+      --pad-x: 18px;
+      --section-y: 64px;
+    }
+    /* Hero: tighten everything */
+    .hero { padding: 48px var(--pad-x) 64px; }
+    .hero-eyebrow {
+      font-size: 10px;
+      padding: 5px 11px;
+      margin-bottom: 22px;
+    }
+    h1.hero-title {
+      font-size: clamp(28px, 8vw, 38px) !important;
+      line-height: 1.08;
+      margin-bottom: 18px;
+    }
+    .hero-sub {
+      font-size: 15px;
+      margin-bottom: 28px;
+    }
+    .hero-cta-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .btn-primary, .btn-secondary {
+      justify-content: center;
+      width: 100%;
+      padding: 13px 18px;
+      font-size: 14px;
+    }
+    .btn-secondary {
+      font-size: 13px;
+    }
+    .hero-foot {
+      padding-top: 22px;
+    }
+    .hero-foot-text { font-size: 12.5px; }
+
+    /* Hero visual */
+    .hero-visual {
+      height: auto;
+      min-height: 460px;
+      margin-top: 16px;
+    }
+    .phone-frame {
+      width: 280px;
+      transform: scale(0.95);
+    }
+    .floating-card {
+      padding: 12px 14px;
+    }
+    .floating-card-1 {
+      top: 4%;
+      left: 0;
+    }
+    .floating-card-2 {
+      bottom: 6%;
+      right: 0;
+    }
+    .fc-stat { font-size: 18px; }
+    .fc-label { font-size: 8px; }
+    .fc-detail { font-size: 9px; }
+
+    /* Sections */
+    .section { padding: 56px var(--pad-x); }
+    h2.section-title {
+      font-size: clamp(26px, 7vw, 34px);
+      letter-spacing: -0.02em;
+    }
+    .section-sub {
+      font-size: 14.5px;
+      margin-bottom: 36px;
+    }
+    .section-eyebrow { font-size: 10px; margin-bottom: 14px; }
+
+    /* Compat band */
+    .compat-band { padding: 48px var(--pad-x); }
+    .compat-headline { font-size: clamp(20px, 5.5vw, 26px); }
+    .compat-sub { font-size: 14px; }
+
+    /* Problem grid */
+    .problem-card { padding: 26px 22px 24px; }
+    .problem-stat { font-size: 40px; margin-bottom: 18px; }
+    .problem-headline { font-size: 16px; }
+
+    /* Solution */
+    .solution { padding: 56px var(--pad-x); }
+    .step { padding: 24px 20px; }
+    .step-icon { width: 32px; height: 32px; margin-bottom: 18px; }
+
+    /* Features */
+    .features { gap: 32px; }
+    .features-list { gap: 4px; }
+    .feature-item {
+      padding: 18px 20px;
+      gap: 14px;
+    }
+    .features-visual {
+      padding: 22px;
+    }
+    .summary-header {
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .summary-subject { font-size: 15px; }
+    .summary-stat-row { gap: 8px; }
+    .summary-stat { padding: 14px; }
+    .summary-stat-num { font-size: 24px; }
+
+    /* Why */
+    .why { padding: 56px var(--pad-x); }
+    .why-title { font-size: clamp(24px, 7vw, 32px); margin-bottom: 26px; }
+    .why-prose p { font-size: 15px; line-height: 1.65; }
+
+    /* Guarantee */
+    .guarantee-wrap { padding: 0 var(--pad-x) 56px; }
+    .guarantee { padding: 32px 24px; border-radius: var(--radius); }
+    .guarantee-inner { gap: 28px; }
+    .guarantee-title { font-size: clamp(24px, 7vw, 32px); margin-bottom: 14px; }
+    .guarantee-text { font-size: 14.5px; }
+    .guarantee-panel { padding: 18px 20px; }
+    .panel-row { padding: 12px 0; }
+    .panel-label { font-size: 10px; letter-spacing: 0.16em; }
+    .panel-value { font-size: 18px; }
+
+    /* FAQ */
+    .faq-section { padding: 56px var(--pad-x); }
+    .faq-q { padding: 16px 18px; gap: 14px; }
+    .faq-q-text { font-size: 14.5px; }
+    .faq-toggle { width: 26px; height: 26px; font-size: 14px; }
+    .faq-item.open .faq-a {
+      padding: 0 18px 18px;
+      font-size: 14px;
+    }
+
+    /* Lead form */
+    .lead-section { padding: 56px var(--pad-x); }
+    .lead-form { gap: 12px; margin-top: 24px; }
+    .lead-field input, .lead-field textarea {
+      font-size: 16px; /* prevents iOS zoom on focus */
+    }
+    .lead-submit { font-size: 14px; padding: 13px 18px; }
+
+    /* Final CTA */
+    .final-cta { padding: 56px var(--pad-x); }
+    .final-cta h2 { font-size: clamp(26px, 7vw, 36px); }
+    .final-cta p { font-size: 15px; margin-bottom: 24px; }
+    .final-cta-row {
+      flex-direction: column;
+      gap: 10px;
+      align-items: stretch;
+    }
+    .final-cta-row .btn-primary,
+    .final-cta-row .btn-secondary {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* Footer */
+    footer { padding: 48px var(--pad-x) 28px; }
+    .footer-tagline { font-size: 13px; }
+    .footer-bottom { font-size: 10px; }
+
+    /* Ticker */
+    .ticker { height: 32px; }
+    .ticker-track { font-size: 10px; gap: 36px; }
+  }
+
+  @media (max-width: 380px) {
+    /* Extra tight phones */
+    h1.hero-title { font-size: 26px !important; }
+    .phone-frame { width: 260px; transform: scale(0.9); }
+    .floating-card-1 { top: 2%; }
+    .floating-card-2 { bottom: 4%; }
+    .panel-value { font-size: 16px; }
+  }
+
+  /* =====================================================================
      MOTION PREFERENCES
      ===================================================================== */
   @media (prefers-reduced-motion: reduce) {
@@ -1477,10 +1705,10 @@
         AI Dispatcher for HVAC
       </div>
       <h1 class="hero-title">
-        The phone rings at 2 AM. <em>Your <span class="accent">competitor</span> picks up.</em>
+        Stop missing calls. <em>Start <span class="accent">booking jobs</span>.</em>
       </h1>
       <p class="hero-sub">
-        Swiftline is the AI dispatcher that answers every HVAC call, day or night, and books the job before the homeowner can dial the next number on Google.
+        Swiftline answers every HVAC call, books every job, and captures every lead. Day, night, weekends.
       </p>
       <div class="hero-cta-row">
         <button data-cal-namespace="demo" data-cal-link="eman-swiftline/15min" data-cal-config='{"layout":"month_view"}' class="btn-primary">
@@ -1512,47 +1740,50 @@
 
     <div class="hero-visual">
       <div class="floating-card floating-card-1">
-        <div class="fc-label">Caller</div>
-        <div class="fc-stat">2:14 AM</div>
-        <div class="fc-detail">picked up on ring 1</div>
+        <div class="fc-pulse"></div>
+        <div class="fc-label">Live now</div>
+        <div class="fc-stat">Ring 1</div>
+        <div class="fc-detail">answered in 0.4s</div>
       </div>
 
       <div class="phone-frame">
         <div class="phone-screen">
           <div class="call-status">
-            <div class="call-status-label">Live · Incoming Call</div>
+            <div class="call-status-label">Incoming · After hours</div>
             <div class="call-name">Mike T.</div>
-            <div class="call-time">2:14 AM · AC out, 84 inside</div>
+            <div class="call-time">AC out · 84° inside</div>
           </div>
           <div class="transcript">
             <div class="msg ai">
-              <div class="msg-label">Swiftline AI</div>
-              Hey, you've reached Aire Pro. AC down at this hour, that's an emergency. What's the address?
+              <div class="msg-label">Swiftline</div>
+              Aire Pro, this is dispatch. What's going on?
             </div>
             <div class="msg client">
               <div class="msg-label">Caller</div>
-              4827 Maple. Whole house is cooking.
+              AC just died. Whole house is cooking.
             </div>
             <div class="msg ai">
-              <div class="msg-label">Swiftline AI</div>
-              Got it. Tech can be there by 6 AM. Emergency rate, $189 trip. Want me to dispatch?
+              <div class="msg-label">Swiftline</div>
+              Got it. Tech can be there by 7 AM. Want me to dispatch?
             </div>
             <div class="msg client">
               <div class="msg-label">Caller</div>
-              Yes, please.
+              Yes please.
             </div>
           </div>
           <div class="booking-confirm">
-            <div class="booking-confirm-label">Dispatched</div>
-            <div class="booking-confirm-text">6 AM · Emergency AC · 4827 Maple</div>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8.5L6.5 12L13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Dispatched · 7 AM · Emergency AC</span>
           </div>
         </div>
       </div>
 
       <div class="floating-card floating-card-2">
-        <div class="fc-label">Booked</div>
-        <div class="fc-stat">+1</div>
-        <div class="fc-detail">while you slept</div>
+        <div class="fc-label">Job booked</div>
+        <div class="fc-stat fc-stat-ok">+$1,400</div>
+        <div class="fc-detail">avg ticket value</div>
       </div>
     </div>
   </div>
@@ -1561,15 +1792,15 @@
 <section class="compat-band">
   <div class="compat-inner reveal">
     <div class="compat-eyebrow">Works with what's already on your truck</div>
-    <h3 class="compat-headline">Whatever software you use to dispatch, schedule, and bill, <em>Swiftline plugs right into it</em>.</h3>
-    <p class="compat-sub">ServiceTitan, Housecall Pro, Jobber, FieldEdge. Doesn't matter. We handle the integration during onboarding. You don't switch tools, you don't migrate jobs, you just stop missing calls.</p>
+    <h3 class="compat-headline">We work with the tools <em>you already run</em>.</h3>
+    <p class="compat-sub">During onboarding we set Swiftline up against whatever dispatch software you use. No platform switch, no data migration.</p>
   </div>
 </section>
 
 <section class="section">
   <div class="section-eyebrow reveal">The cost of a missed call</div>
   <h2 class="section-title reveal">Every unanswered ring is a job <em>your competitor just got</em>.</h2>
-  <p class="section-sub reveal">Heat wave hits and the phone never stops. Furnace dies on Christmas morning. Homeowners don't leave voicemails for HVAC, they call the next number on Google. And the next. Until somebody picks up.</p>
+  <p class="section-sub reveal">Homeowners don't leave voicemails for HVAC. They call the next number on Google. And the next. Until somebody picks up.</p>
 
   <div class="problem-grid reveal-stagger">
     <div class="problem-card">
@@ -1660,7 +1891,7 @@
         <div class="feature-num">02</div>
         <div>
           <h3 class="feature-headline">Direct dispatch into your software</h3>
-          <p class="feature-text">ServiceTitan, Housecall Pro, Jobber, FieldEdge. Swiftline drops jobs straight into your existing system. No new tools. No migration.</p>
+          <p class="feature-text">Whatever dispatch software you run, Swiftline drops jobs into it. No new tools. No migration.</p>
         </div>
       </div>
       <div class="feature-item">
@@ -1762,15 +1993,28 @@
 <section class="guarantee-wrap" id="guarantee">
   <div class="guarantee reveal">
     <div class="guarantee-inner">
-      <div>
+      <div class="guarantee-content">
         <div class="guarantee-eyebrow">The Swiftline guarantee</div>
         <h2 class="guarantee-title">$500 to start. Then free until we <em>book your first five</em>.</h2>
-        <p class="guarantee-text">$500 setup gets us building. After that, you don't pay another cent until Swiftline books you five real jobs. If it never gets there, your bill stays at zero. We do the work, prove it works, then we get paid. The risk is on us, not you.</p>
+        <p class="guarantee-text">If we don't book you five real jobs, you don't owe another dollar. We do the work, prove it works, then get paid.</p>
       </div>
-      <div class="guarantee-seal">
-        <div class="seal-num">5</div>
-        <div class="seal-label">Jobs · Then You Pay</div>
-        <div class="seal-sub">no recurring risk</div>
+      <div class="guarantee-panel">
+        <div class="panel-row">
+          <div class="panel-label">Setup</div>
+          <div class="panel-value">$500</div>
+        </div>
+        <div class="panel-row">
+          <div class="panel-label">Until 5 jobs booked</div>
+          <div class="panel-value panel-value-ok">$0</div>
+        </div>
+        <div class="panel-row">
+          <div class="panel-label">If we don't deliver</div>
+          <div class="panel-value panel-value-ok">$0 forever</div>
+        </div>
+        <div class="panel-foot">
+          <div class="panel-foot-dot"></div>
+          Risk on us, not you
+        </div>
       </div>
     </div>
   </div>
@@ -1818,10 +2062,10 @@
     </div>
     <div class="faq-item">
       <div class="faq-q">
-        <div class="faq-q-text">What field service software do you work with?</div>
+        <div class="faq-q-text">Will it work with my dispatch software?</div>
         <div class="faq-toggle">+</div>
       </div>
-      <div class="faq-a">ServiceTitan, Housecall Pro, Jobber, FieldEdge, Service Fusion. All the common ones. If your dispatcher uses it today, we'll integrate Swiftline with it during onboarding. You don't switch tools, migrate jobs, or change anything about how your team works. We adapt to you.</div>
+      <div class="faq-a">Whatever dispatch software you use today, we set Swiftline up to drop jobs into it during onboarding. You don't switch tools, migrate jobs, or change anything about how your team works.</div>
     </div>
   </div>
 </section>
@@ -1868,7 +2112,7 @@
 
 <section class="final-cta" id="demo">
   <div class="final-cta-inner reveal">
-    <h2>Stop missing calls. <em>Start booking jobs.</em></h2>
+    <h2>See it on a live call. <em>Then decide.</em></h2>
     <p>Book a 20 minute demo. We'll walk you through Swiftline live, on real call recordings, integrated with whatever field service software you already use. No slide deck. No pressure.</p>
     <div class="final-cta-row">
       <button data-cal-namespace="demo" data-cal-link="eman-swiftline/15min" data-cal-config='{"layout":"month_view"}' class="btn-primary">
