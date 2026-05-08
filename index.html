@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <!-- Primary Meta Tags -->
-<title>Swiftline · The AI Dispatcher Built for HVAC</title>
-<meta name="title" content="Swiftline · The AI Dispatcher Built for HVAC">
-<meta name="description" content="The phone rings at 2 AM. Your competitor picks up. Swiftline answers every HVAC call, books every job, captures every after-hours emergency. Free until we book you 5 jobs.">
+<title>Swiftline · The AI Receptionist Built for HVAC</title>
+<meta name="title" content="Swiftline · The AI Receptionist Built for HVAC">
+<meta name="description" content="The phone rings. Your competitor picks up. Swiftline answers every HVAC call, books every job, and captures every after-hours emergency.">
 <meta name="author" content="Swiftline">
 <link rel="canonical" href="https://getswiftline.com/">
 
@@ -15,7 +15,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://getswiftline.com/">
 <meta property="og:title" content="Stop letting your phone hand jobs to your competitors.">
-<meta property="og:description" content="Swiftline is the AI dispatcher built for HVAC. Free until we book your first 5 jobs.">
+<meta property="og:description" content="Swiftline is the AI receptionist built for HVAC. Stop missing calls. Start booking jobs.">
 <meta property="og:image" content="https://getswiftline.com/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -25,7 +25,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="https://getswiftline.com/">
 <meta name="twitter:title" content="Stop letting your phone hand jobs to your competitors.">
-<meta name="twitter:description" content="Swiftline is the AI dispatcher built for HVAC. Free until we book your first 5 jobs.">
+<meta name="twitter:description" content="Swiftline is the AI receptionist built for HVAC. Stop missing calls. Start booking jobs.">
 <meta name="twitter:image" content="https://getswiftline.com/og-image.png">
 
 <!-- Theme color for mobile browsers -->
@@ -140,7 +140,7 @@
   /* Strip italics globally · kill the editorial gold-italic pattern */
   em, i { font-style: normal; }
   /* Em is used as accent inside headlines */
-  .hero-title em, .section-title em, .why-title em, .guarantee-title em,
+  .hero-title em, .section-title em, .why-title em,
   .compat-headline em, h2 em {
     color: var(--accent);
     font-style: normal;
@@ -358,12 +358,12 @@
 
   h1.hero-title {
     font-family: var(--display);
-    font-size: clamp(32px, 4.6vw, 60px);
+    font-size: clamp(42px, 6vw, 84px);
     font-weight: 700;
-    line-height: 1.04;
-    letter-spacing: -0.03em;
+    line-height: 1.0;
+    letter-spacing: -0.04em;
     color: var(--text-1);
-    margin-bottom: 24px;
+    margin-bottom: 28px;
   }
 
   .hero-sub {
@@ -461,24 +461,218 @@
     justify-content: center;
   }
 
+  /* ============ PHONE ============ */
+  .phone-frame {
+    width: 320px;
+    max-width: 90%;
+    aspect-ratio: 9 / 19;
+    background: linear-gradient(180deg, #1F2832 0%, #0F141B 100%);
+    border: 1px solid var(--line-3);
+    border-radius: 36px;
+    padding: 8px;
+    box-shadow:
+      0 30px 80px rgba(0, 0, 0, 0.6),
+      0 0 0 1px rgba(255, 255, 255, 0.04),
+      inset 0 1px 1px rgba(255, 255, 255, 0.06);
+    position: relative;
+    z-index: 2;
+  }
+  /* Notch */
+  .phone-frame::before {
+    content: '';
+    position: absolute;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 88px;
+    height: 22px;
+    background: #000;
+    border-radius: 100px;
+    z-index: 4;
+  }
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    background: var(--bg-0);
+    border-radius: 28px;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Phone status bar (time + signal/wifi/battery icons) */
+  .phone-status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 22px 6px;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-1);
+    z-index: 5;
+  }
+  .status-icons {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--text-1);
+  }
+
+  /* Call header: avatar + name + live indicator */
+  .phone-call-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px 12px;
+    border-bottom: 1px solid var(--line-1);
+  }
+  .caller-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dim) 100%);
+    color: var(--bg-0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+  .caller-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .caller-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-1);
+    line-height: 1.2;
+    margin-bottom: 2px;
+  }
+  .caller-meta {
+    font-family: var(--mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--text-3);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .caller-meta-pulse {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent-glow);
+    animation: pulse-dot 1.4s ease-in-out infinite;
+  }
+
+  /* Transcript: edge-to-edge messages */
+  .transcript {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px 12px 6px;
+    overflow: hidden;
+    min-height: 0;
+  }
+  .msg-row {
+    display: flex;
+    width: 100%;
+  }
+  .msg-row-ai { justify-content: flex-start; }
+  .msg-row-client { justify-content: flex-end; }
+  .msg {
+    max-width: 82%;
+    padding: 8px 11px;
+    font-size: 11.5px;
+    line-height: 1.35;
+    word-wrap: break-word;
+  }
+  .msg-ai {
+    background: var(--bg-2);
+    color: var(--text-1);
+    border-radius: 14px 14px 14px 4px;
+    border: 1px solid var(--line-1);
+  }
+  .msg-client {
+    background: var(--accent);
+    color: var(--bg-0);
+    border-radius: 14px 14px 4px 14px;
+    font-weight: 500;
+  }
+
+  /* Typing indicator */
+  .msg-typing {
+    background: var(--bg-2);
+    border: 1px solid var(--line-1);
+    border-radius: 14px 14px 14px 4px;
+    padding: 10px 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .typing-dot {
+    width: 5px;
+    height: 5px;
+    background: var(--text-3);
+    border-radius: 50%;
+    animation: typing 1.4s infinite;
+  }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes typing {
+    0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+    30% { opacity: 1; transform: translateY(-2px); }
+  }
+
+  /* Booking confirm bar at bottom of phone */
+  .booking-confirm {
+    margin: 8px 12px 14px;
+    background: var(--ok-glow);
+    border: 1px solid rgba(74, 222, 128, 0.28);
+    border-radius: 10px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--ok);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  .booking-confirm svg { flex-shrink: 0; color: var(--ok); }
+  .booking-confirm span { color: var(--text-1); font-weight: 500; }
+
+  /* ============ FLOATING CARDS · overlap onto phone ============ */
   .floating-card {
     position: absolute;
     background: var(--bg-2);
     border: 1px solid var(--line-2);
     border-radius: var(--radius);
     padding: 14px 16px;
-    z-index: 3;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    z-index: 5; /* sits above phone */
+    backdrop-filter: blur(12px);
+    box-shadow:
+      0 12px 36px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(255, 255, 255, 0.04);
+    min-width: 130px;
   }
   .floating-card-1 {
-    top: 8%;
-    left: -2%;
+    top: 14%;
+    left: -14%;
     animation: float-1 6s ease-in-out infinite;
   }
   .floating-card-2 {
-    bottom: 12%;
-    right: -2%;
+    bottom: 18%;
+    right: -14%;
     animation: float-2 7s ease-in-out infinite;
   }
   @keyframes float-1 {
@@ -489,13 +683,23 @@
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(8px); }
   }
+  .fc-pulse {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+    animation: pulse-dot 1.6s ease-in-out infinite;
+  }
   .fc-label {
     font-family: var(--mono);
     font-size: 9px;
     text-transform: uppercase;
     letter-spacing: 0.18em;
     color: var(--text-3);
-    margin-bottom: 4px;
+    margin-bottom: 6px;
   }
   .fc-stat {
     font-family: var(--display);
@@ -504,153 +708,15 @@
     color: var(--text-1);
     line-height: 1;
     margin-bottom: 4px;
+    letter-spacing: -0.02em;
   }
-  .floating-card-2 .fc-stat { color: var(--ok); }
+  .fc-stat-ok { color: var(--ok); }
   .fc-detail {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--text-3);
-    letter-spacing: 0.05em;
-  }
-
-  .phone-frame {
-    width: 320px;
-    max-width: 90%;
-    aspect-ratio: 9 / 19;
-    background: var(--bg-2);
-    border: 1px solid var(--line-3);
-    border-radius: 32px;
-    padding: 12px;
-    box-shadow:
-      0 30px 80px rgba(0, 0, 0, 0.6),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.03);
-    position: relative;
-  }
-  .phone-frame::before {
-    content: '';
-    position: absolute;
-    top: 22px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 22px;
-    background: var(--bg-0);
-    border-radius: 100px;
-    z-index: 2;
-  }
-  .phone-screen {
-    width: 100%;
-    height: 100%;
-    background: var(--bg-0);
-    border-radius: 22px;
-    padding: 60px 18px 18px;
-    overflow: hidden;
-    position: relative;
-  }
-  .call-status {
-    text-align: center;
-    margin-bottom: 20px;
-    padding-bottom: 18px;
-    border-bottom: 1px solid var(--line-1);
-  }
-  .call-status-label {
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-  }
-  .call-status-label::before {
-    content: '';
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: var(--accent);
-    animation: pulse-dot 1.4s infinite;
-  }
-  .call-name {
-    font-family: var(--display);
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--text-1);
-    margin-bottom: 4px;
-    letter-spacing: -0.01em;
-  }
-  .call-time {
     font-family: var(--mono);
     font-size: 10px;
     color: var(--text-3);
     letter-spacing: 0.04em;
   }
-  .transcript {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 16px;
-  }
-  .msg {
-    padding: 8px 11px;
-    border-radius: 8px;
-    font-size: 11.5px;
-    line-height: 1.4;
-  }
-  .msg.ai {
-    background: rgba(255, 106, 44, 0.10);
-    border-left: 2px solid var(--accent);
-    color: var(--text-1);
-  }
-  .msg.client {
-    background: var(--bg-2);
-    border-left: 2px solid var(--text-4);
-    color: var(--text-2);
-  }
-  .msg-label {
-    font-family: var(--mono);
-    font-size: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    margin-bottom: 3px;
-    color: var(--accent);
-  }
-  .msg.client .msg-label { color: var(--text-3); }
-  .booking-confirm {
-    background: var(--ok-glow);
-    border: 1px solid rgba(74, 222, 128, 0.28);
-    border-radius: 8px;
-    padding: 10px 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--ok);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.01em;
-  }
-  .booking-confirm svg {
-    flex-shrink: 0;
-    color: var(--ok);
-  }
-  .booking-confirm span {
-    color: var(--text-1);
-    font-weight: 500;
-  }
-  /* Floating card pulse indicator (live status) */
-  .floating-card { position: absolute; }
-  .fc-pulse {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 3px var(--accent-glow);
-    animation: pulse-dot 1.6s ease-in-out infinite;
-  }
-  .fc-stat-ok { color: var(--ok) !important; }
 
   @media (max-width: 900px) {
     .hero-grid { grid-template-columns: 1fr; }
@@ -1074,138 +1140,6 @@
   }
 
   /* =====================================================================
-     GUARANTEE
-     ===================================================================== */
-  .guarantee-wrap {
-    padding: 0 var(--pad-x) var(--section-y);
-  }
-  .guarantee {
-    max-width: var(--container);
-    margin: 0 auto;
-    background:
-      radial-gradient(ellipse at top right, var(--accent-glow) 0%, transparent 50%),
-      var(--bg-1);
-    border: 1px solid var(--line-2);
-    border-radius: var(--radius-lg);
-    padding: clamp(40px, 6vw, 72px);
-    position: relative;
-    overflow: hidden;
-  }
-  .guarantee::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 4px; height: 100%;
-    background: var(--accent);
-  }
-  .guarantee-inner {
-    display: grid;
-    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-    gap: 48px;
-    align-items: center;
-  }
-  @media (max-width: 800px) {
-    .guarantee-inner { grid-template-columns: 1fr; }
-  }
-  .guarantee-eyebrow {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 18px;
-  }
-  .guarantee-title {
-    font-family: var(--display);
-    font-size: clamp(28px, 3.8vw, 44px);
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.025em;
-    color: var(--text-1);
-    margin-bottom: 18px;
-  }
-  .guarantee-text {
-    font-size: 15.5px;
-    line-height: 1.65;
-    color: var(--text-2);
-    max-width: 540px;
-  }
-  .guarantee-seal {
-    display: none; /* legacy seal markup removed; using guarantee-panel now */
-  }
-  .guarantee-content {
-    min-width: 0;
-  }
-  .guarantee-panel {
-    background: var(--bg-2);
-    border: 1px solid var(--line-3);
-    border-radius: var(--radius);
-    padding: 24px 28px 22px;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    min-width: 0;
-  }
-  .panel-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--line-1);
-    gap: 16px;
-  }
-  .panel-row:first-child { padding-top: 4px; }
-  .panel-row:last-of-type { border-bottom: none; }
-  .panel-label {
-    font-family: var(--mono);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: var(--text-3);
-    flex-shrink: 0;
-  }
-  .panel-value {
-    font-family: var(--display);
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--text-1);
-    letter-spacing: -0.02em;
-    line-height: 1;
-    font-feature-settings: 'tnum';
-    text-align: right;
-  }
-  .panel-value-ok {
-    color: var(--ok);
-  }
-  .panel-foot {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 18px;
-    padding-top: 16px;
-    border-top: 1px solid var(--line-1);
-    font-family: var(--mono);
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: var(--accent);
-  }
-  .panel-foot-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 3px var(--accent-glow);
-    animation: pulse-dot 1.6s ease-in-out infinite;
-  }
-  @media (max-width: 800px) {
-    .guarantee-panel {
-      width: 100%;
-      max-width: 420px;
-      margin: 0 auto;
-    }
-  }
-
-  /* =====================================================================
      FAQ
      ===================================================================== */
   .faq-section {
@@ -1523,14 +1457,15 @@
     }
     .floating-card {
       padding: 12px 14px;
+      min-width: 110px;
     }
     .floating-card-1 {
-      top: 4%;
-      left: 0;
+      top: 6%;
+      left: -8%;
     }
     .floating-card-2 {
-      bottom: 6%;
-      right: 0;
+      bottom: 8%;
+      right: -8%;
     }
     .fc-stat { font-size: 18px; }
     .fc-label { font-size: 8px; }
@@ -1587,17 +1522,6 @@
     .why-title { font-size: clamp(24px, 7vw, 32px); margin-bottom: 26px; }
     .why-prose p { font-size: 15px; line-height: 1.65; }
 
-    /* Guarantee */
-    .guarantee-wrap { padding: 0 var(--pad-x) 56px; }
-    .guarantee { padding: 32px 24px; border-radius: var(--radius); }
-    .guarantee-inner { gap: 28px; }
-    .guarantee-title { font-size: clamp(24px, 7vw, 32px); margin-bottom: 14px; }
-    .guarantee-text { font-size: 14.5px; }
-    .guarantee-panel { padding: 18px 20px; }
-    .panel-row { padding: 12px 0; }
-    .panel-label { font-size: 10px; letter-spacing: 0.16em; }
-    .panel-value { font-size: 18px; }
-
     /* FAQ */
     .faq-section { padding: 56px var(--pad-x); }
     .faq-q { padding: 16px 18px; gap: 14px; }
@@ -1642,12 +1566,10 @@
   }
 
   @media (max-width: 380px) {
-    /* Extra tight phones */
-    h1.hero-title { font-size: 26px !important; }
-    .phone-frame { width: 260px; transform: scale(0.9); }
-    .floating-card-1 { top: 2%; }
-    .floating-card-2 { bottom: 4%; }
-    .panel-value { font-size: 16px; }
+    h1.hero-title { font-size: 32px !important; }
+    .phone-frame { width: 250px; transform: scale(0.92); }
+    .floating-card-1 { top: 3%; left: -4%; }
+    .floating-card-2 { bottom: 5%; right: -4%; }
   }
 
   /* =====================================================================
@@ -1669,16 +1591,16 @@
 
 <div class="ticker">
   <div class="ticker-track">
-    <span class="ticker-item"><span>●</span> AI Dispatcher</span>
+    <span class="ticker-item"><span>●</span> AI Receptionist</span>
     <span class="ticker-item"><span>●</span> 24/7 Call Coverage</span>
     <span class="ticker-item"><span>●</span> Emergency Job Capture</span>
     <span class="ticker-item"><span>●</span> Built for HVAC</span>
-    <span class="ticker-item"><span>●</span> Free Until We Book 5 Jobs</span>
-    <span class="ticker-item"><span>●</span> AI Dispatcher</span>
+    <span class="ticker-item"><span>●</span> White Glove Setup</span>
+    <span class="ticker-item"><span>●</span> AI Receptionist</span>
     <span class="ticker-item"><span>●</span> 24/7 Call Coverage</span>
     <span class="ticker-item"><span>●</span> Emergency Job Capture</span>
     <span class="ticker-item"><span>●</span> Built for HVAC</span>
-    <span class="ticker-item"><span>●</span> Free Until We Book 5 Jobs</span>
+    <span class="ticker-item"><span>●</span> White Glove Setup</span>
   </div>
 </div>
 
@@ -1702,7 +1624,7 @@
     <div>
       <div class="hero-eyebrow">
         <span class="hero-pulse"></span>
-        AI Dispatcher for HVAC
+        AI Receptionist for HVAC
       </div>
       <h1 class="hero-title">
         Stop missing calls. <em>Start <span class="accent">booking jobs</span>.</em>
@@ -1733,7 +1655,7 @@
           </svg>
         </div>
         <div class="hero-foot-text">
-          <strong>$500 setup. Free after that until we book you 5 jobs.</strong> If it doesn't earn its keep, you don't pay.
+          <strong>White-glove setup in seven days.</strong> We tune the AI to your services, your pricing, and your call flow. You approve before it goes live.
         </div>
       </div>
     </div>
@@ -1748,34 +1670,65 @@
 
       <div class="phone-frame">
         <div class="phone-screen">
-          <div class="call-status">
-            <div class="call-status-label">Incoming · After hours</div>
-            <div class="call-name">Mike T.</div>
-            <div class="call-time">AC out · 84° inside</div>
+          <div class="phone-status-bar">
+            <span>9:41</span>
+            <span class="status-icons">
+              <svg width="14" height="9" viewBox="0 0 14 9" fill="none" aria-hidden="true">
+                <rect x="0" y="6" width="2" height="3" rx="0.5" fill="currentColor"/>
+                <rect x="3" y="4" width="2" height="5" rx="0.5" fill="currentColor"/>
+                <rect x="6" y="2" width="2" height="7" rx="0.5" fill="currentColor"/>
+                <rect x="9" y="0" width="2" height="9" rx="0.5" fill="currentColor"/>
+              </svg>
+              <svg width="14" height="9" viewBox="0 0 14 9" fill="none" aria-hidden="true">
+                <path d="M7 1.5C5.2 1.5 3.5 2.2 2.2 3.5L0.5 1.8C2.3 0 4.6 -1 7 -1C9.4 -1 11.7 0 13.5 1.8L11.8 3.5C10.5 2.2 8.8 1.5 7 1.5Z" fill="currentColor"/>
+                <circle cx="7" cy="6.5" r="1.5" fill="currentColor"/>
+              </svg>
+              <svg width="20" height="9" viewBox="0 0 20 9" fill="none" aria-hidden="true">
+                <rect x="0" y="0" width="17" height="9" rx="2" stroke="currentColor" stroke-width="0.7" fill="none"/>
+                <rect x="2" y="2" width="13" height="5" rx="0.5" fill="currentColor"/>
+                <rect x="18" y="3" width="2" height="3" rx="0.5" fill="currentColor"/>
+              </svg>
+            </span>
           </div>
+
+          <div class="phone-call-header">
+            <div class="caller-avatar">M</div>
+            <div class="caller-info">
+              <div class="caller-name">Mike T.</div>
+              <div class="caller-meta">
+                <span class="caller-meta-pulse"></span>
+                Live · AC out, 84° inside
+              </div>
+            </div>
+          </div>
+
           <div class="transcript">
-            <div class="msg ai">
-              <div class="msg-label">Swiftline</div>
-              Aire Pro, this is dispatch. What's going on?
+            <div class="msg-row msg-row-ai">
+              <div class="msg msg-ai">Aire Pro, this is the front desk. What's going on?</div>
             </div>
-            <div class="msg client">
-              <div class="msg-label">Caller</div>
-              AC just died. Whole house is cooking.
+            <div class="msg-row msg-row-client">
+              <div class="msg msg-client">AC just died. Whole house is cooking.</div>
             </div>
-            <div class="msg ai">
-              <div class="msg-label">Swiftline</div>
-              Got it. Tech can be there by 7 AM. Want me to dispatch?
+            <div class="msg-row msg-row-ai">
+              <div class="msg msg-ai">Got it. Tech can be there by 7 AM. Want me to book it?</div>
             </div>
-            <div class="msg client">
-              <div class="msg-label">Caller</div>
-              Yes please.
+            <div class="msg-row msg-row-client">
+              <div class="msg msg-client">Yes please.</div>
+            </div>
+            <div class="msg-row msg-row-ai">
+              <div class="msg msg-typing">
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+              </div>
             </div>
           </div>
+
           <div class="booking-confirm">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <path d="M3 8.5L6.5 12L13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            <span>Dispatched · 7 AM · Emergency AC</span>
+            <span>Booked · 7 AM · Emergency AC</span>
           </div>
         </div>
       </div>
@@ -1824,7 +1777,7 @@
 <section class="solution" id="how">
   <div class="solution-inner">
     <div class="section-eyebrow reveal">How Swiftline works</div>
-    <h2 class="section-title reveal">From cold call to dispatched truck <em>in under two minutes</em>.</h2>
+    <h2 class="section-title reveal">From cold call to booked job <em>in under two minutes</em>.</h2>
     <p class="section-sub reveal">No new hardware. No retraining your CSRs. We forward your line through Swiftline and the calls just start getting handled.</p>
 
     <div class="steps reveal-stagger">
@@ -1837,7 +1790,7 @@
         </div>
         <span class="step-num">01 · Onboarding</span>
         <h3 class="step-title">We learn your shop.</h3>
-        <p class="step-text">Your service area, pricing, dispatch rules, emergency protocols, who's on call. White glove setup, done in seven days.</p>
+        <p class="step-text">Your service area, pricing, call handling rules, emergency protocols, who's on call. White glove setup, done in seven days.</p>
       </div>
       <div class="step">
         <div class="step-icon">
@@ -1856,7 +1809,7 @@
             <path d="M3 8H17M7 3V5M13 3V5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
           </svg>
         </div>
-        <span class="step-num">03 · Dispatched direct</span>
+        <span class="step-num">03 · Booked direct</span>
         <h3 class="step-title">Straight into your software.</h3>
         <p class="step-text">Jobs drop into ServiceTitan, Housecall Pro, Jobber, whatever you run. Confirmation text fires automatically.</p>
       </div>
@@ -1876,7 +1829,7 @@
 
 <section class="section" id="features">
   <div class="section-eyebrow reveal">What's inside</div>
-  <h2 class="section-title reveal">A dispatcher that does <em>everything</em>, except small talk.</h2>
+  <h2 class="section-title reveal">A receptionist that does <em>everything</em>, except small talk.</h2>
 
   <div class="features">
     <div class="features-list reveal-stagger">
@@ -1890,7 +1843,7 @@
       <div class="feature-item">
         <div class="feature-num">02</div>
         <div>
-          <h3 class="feature-headline">Direct dispatch into your software</h3>
+          <h3 class="feature-headline">Direct booking into your software</h3>
           <p class="feature-text">Whatever dispatch software you run, Swiftline drops jobs into it. No new tools. No migration.</p>
         </div>
       </div>
@@ -1898,7 +1851,7 @@
         <div class="feature-num">03</div>
         <div>
           <h3 class="feature-headline">Emergency triage</h3>
-          <p class="feature-text">No heat in winter, no AC in summer, gas smell, water leak. Swiftline knows what's actually urgent and dispatches accordingly. Tier-1 emergencies get prioritized, the rest get scheduled.</p>
+          <p class="feature-text">No heat in winter, no AC in summer, gas smell, water leak. Swiftline knows what's actually urgent and routes accordingly. Tier-1 emergencies get prioritized, the rest get scheduled.</p>
         </div>
       </div>
       <div class="feature-item">
@@ -1947,7 +1900,7 @@
         <div class="summary-list-label">Highlights</div>
         <div class="summary-row">
           <span class="summary-row-dot book"></span>
-          <span class="summary-row-text"><strong>Dispatched</strong> · Emergency AC, 4827 Maple, 6 AM</span>
+          <span class="summary-row-text"><strong>Booked</strong> · Emergency AC, 4827 Maple, 6 AM</span>
           <span class="summary-row-time">Tue 2:14 AM</span>
         </div>
         <div class="summary-row">
@@ -1981,41 +1934,11 @@
 
       <p>That stuck with me. Three businesses had spent real money to make sure I'd find them. A ringing phone made all of it pointless.</p>
 
-      <p>Swiftline is built for HVAC specifically. Not generic small business, not plumbers, not roofers. The AI knows dispatch logic, emergency triage, and how your shop actually runs. Jobs drop straight into the software you already use.</p>
+      <p>Swiftline is built for HVAC specifically. Not generic small business, not plumbers, not roofers. The AI knows call handling, emergency triage, and how your shop actually runs. Jobs drop straight into the software you already use.</p>
     </div>
 
     <div class="why-sign">
       <div class="why-sign-name">Eman, Founder of Swiftline</div>
-    </div>
-  </div>
-</section>
-
-<section class="guarantee-wrap" id="guarantee">
-  <div class="guarantee reveal">
-    <div class="guarantee-inner">
-      <div class="guarantee-content">
-        <div class="guarantee-eyebrow">The Swiftline guarantee</div>
-        <h2 class="guarantee-title">$500 to start. Then free until we <em>book your first five</em>.</h2>
-        <p class="guarantee-text">If we don't book you five real jobs, you don't owe another dollar. We do the work, prove it works, then get paid.</p>
-      </div>
-      <div class="guarantee-panel">
-        <div class="panel-row">
-          <div class="panel-label">Setup</div>
-          <div class="panel-value">$500</div>
-        </div>
-        <div class="panel-row">
-          <div class="panel-label">Until 5 jobs booked</div>
-          <div class="panel-value panel-value-ok">$0</div>
-        </div>
-        <div class="panel-row">
-          <div class="panel-label">If we don't deliver</div>
-          <div class="panel-value panel-value-ok">$0 forever</div>
-        </div>
-        <div class="panel-foot">
-          <div class="panel-foot-dot"></div>
-          Risk on us, not you
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -2030,7 +1953,7 @@
         <div class="faq-q-text">Will customers know they're talking to AI?</div>
         <div class="faq-toggle">+</div>
       </div>
-      <div class="faq-a">Most don't. Swiftline sounds like a calm, professional dispatcher. By the time they realize, the job is already booked. We can disclose that it's AI at the start of every call if you prefer (some states require it), but in practice callers care about one thing: getting a tech out to their house. They don't care who takes the call as long as somebody does.</div>
+      <div class="faq-a">Most don't. Swiftline sounds like a calm, professional receptionist. By the time they realize, the job is already booked. We can disclose that it's AI at the start of every call if you prefer (some states require it), but in practice callers care about one thing: getting a tech out to their house. They don't care who takes the call as long as somebody does.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">
@@ -2044,7 +1967,7 @@
         <div class="faq-q-text">How long does setup take?</div>
         <div class="faq-toggle">+</div>
       </div>
-      <div class="faq-a">Seven business days from signed agreement to live calls. We handle the field service software integration, voice training, dispatch logic, emergency triage rules, and live test calls. You approve before we flip the switch.</div>
+      <div class="faq-a">Seven business days from signed agreement to live calls. We handle the field service software integration, voice training, call handling logic, emergency triage rules, and live test calls. You approve before we flip the switch.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">
@@ -2052,13 +1975,6 @@
         <div class="faq-toggle">+</div>
       </div>
       <div class="faq-a">It escalates cleanly. Anything technical, complex, or sensitive routes to your on-call tech or dispatcher during business hours, or gets logged as a structured callback that lands in your inbox. No caller gets dropped or stranded.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">
-        <div class="faq-q-text">How does the 5-job guarantee work?</div>
-        <div class="faq-toggle">+</div>
-      </div>
-      <div class="faq-a">You pay $500 setup. We build your AI dispatcher and go live within a week. After that, you don't pay another dollar until Swiftline books you five real jobs through your line. Once the fifth booking lands, the monthly subscription kicks in. If it never gets you there within 90 days, your bill stays at zero and you walk. We do the work and prove it works before we get paid recurring.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">
@@ -2139,14 +2055,13 @@
       <div class="logo">
         <span class="swift">Swift</span><span class="line">line</span><span class="dot">.</span>
       </div>
-      <p class="footer-tagline">The AI dispatcher built for HVAC. So you stop losing jobs to a ringing phone.</p>
+      <p class="footer-tagline">The AI receptionist built for HVAC. So you stop losing jobs to a ringing phone.</p>
     </div>
     <div class="footer-col">
       <h4>Product</h4>
       <ul>
         <li><a href="#how">How it works</a></li>
         <li><a href="#features">Features</a></li>
-        <li><a href="#guarantee">Guarantee</a></li>
       </ul>
     </div>
     <div class="footer-col">
