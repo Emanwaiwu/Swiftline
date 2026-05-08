@@ -358,10 +358,10 @@
 
   h1.hero-title {
     font-family: var(--display);
-    font-size: clamp(42px, 6vw, 84px);
+    font-size: clamp(38px, 5vw, 68px);
     font-weight: 700;
-    line-height: 1.0;
-    letter-spacing: -0.04em;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
     color: var(--text-1);
     margin-bottom: 28px;
   }
@@ -573,13 +573,14 @@
     animation: pulse-dot 1.4s ease-in-out infinite;
   }
 
-  /* Transcript: edge-to-edge messages */
+  /* Transcript: messages fill available screen, push toward bottom */
   .transcript {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    padding: 12px 12px 6px;
+    justify-content: flex-end;
+    gap: 7px;
+    padding: 14px 12px 8px;
     overflow: hidden;
     min-height: 0;
   }
@@ -666,13 +667,13 @@
     min-width: 130px;
   }
   .floating-card-1 {
-    top: 14%;
-    left: -14%;
+    top: 12%;
+    left: calc(50% - 200px);
     animation: float-1 6s ease-in-out infinite;
   }
   .floating-card-2 {
-    bottom: 18%;
-    right: -14%;
+    bottom: 16%;
+    right: calc(50% - 200px);
     animation: float-2 7s ease-in-out infinite;
   }
   @keyframes float-1 {
@@ -720,7 +721,7 @@
 
   @media (max-width: 900px) {
     .hero-grid { grid-template-columns: 1fr; }
-    .hero-visual { height: 520px; margin-top: 24px; }
+    .hero-visual { height: 540px; margin-top: 56px; }
   }
 
   /* =====================================================================
@@ -1448,8 +1449,8 @@
     /* Hero visual */
     .hero-visual {
       height: auto;
-      min-height: 460px;
-      margin-top: 16px;
+      min-height: 480px;
+      margin-top: 48px;
     }
     .phone-frame {
       width: 280px;
@@ -1460,12 +1461,12 @@
       min-width: 110px;
     }
     .floating-card-1 {
-      top: 6%;
-      left: -8%;
+      top: 4%;
+      left: 4%;
     }
     .floating-card-2 {
-      bottom: 8%;
-      right: -8%;
+      bottom: 4%;
+      right: 4%;
     }
     .fc-stat { font-size: 18px; }
     .fc-label { font-size: 8px; }
@@ -1568,8 +1569,9 @@
   @media (max-width: 380px) {
     h1.hero-title { font-size: 32px !important; }
     .phone-frame { width: 250px; transform: scale(0.92); }
-    .floating-card-1 { top: 3%; left: -4%; }
-    .floating-card-2 { bottom: 5%; right: -4%; }
+    .floating-card { min-width: 100px; padding: 10px 12px; }
+    .floating-card-1 { top: 2%; left: 2%; }
+    .floating-card-2 { bottom: 2%; right: 2%; }
   }
 
   /* =====================================================================
@@ -1710,7 +1712,13 @@
               <div class="msg msg-client">AC just died. Whole house is cooking.</div>
             </div>
             <div class="msg-row msg-row-ai">
-              <div class="msg msg-ai">Got it. Tech can be there by 7 AM. Want me to book it?</div>
+              <div class="msg msg-ai">Got it. What's the address?</div>
+            </div>
+            <div class="msg-row msg-row-client">
+              <div class="msg msg-client">4827 Maple, Rancho Cucamonga.</div>
+            </div>
+            <div class="msg-row msg-row-ai">
+              <div class="msg msg-ai">Tech can be there by 7 AM. Want me to book it?</div>
             </div>
             <div class="msg-row msg-row-client">
               <div class="msg msg-client">Yes please.</div>
